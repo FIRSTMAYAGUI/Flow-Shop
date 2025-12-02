@@ -38,7 +38,7 @@ class CategoriesController extends Controller
     {
         $validatedCategoryData = Validator::make($request->all(), [
             'name' => 'required|max:255|string',
-            'slug' => 'required|max:255|string|unique',
+            'slug' => 'required|max:255|string|unique:categories,slug',
         ]);
 
         if($validatedCategoryData->fails()){
@@ -102,7 +102,7 @@ class CategoriesController extends Controller
 
         $validatedCategoryData = Validator::make($request->all(), [
             'name' => 'required|max:255|string',
-            'slug' => 'required|max:255|string|unique',
+            'slug' => 'required|max:255|string|unique:categories,slug',
         ]);
 
         if($validatedCategoryData->fails()){
