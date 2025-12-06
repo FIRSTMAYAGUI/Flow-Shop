@@ -137,14 +137,20 @@ class OrdersController extends Controller
             ], 404);
         }
 
-        $userOrder = Orders::where('user_id', $userId)->get();
+        $userOrder = Orders::where('user_id', $userId)->where('id', $orderId)->get();
 
-        if(!$userOrder){
+        if($userOrder->isEmpty()){
             return response()->json([
                 'message' => 'Order doesn\'t belong to user',
                 'status' => 'failed',
             ], 403);
         }
+
+        return response()->json([
+            'message' => 'Order fetched successfully',
+            'status' => 'success',
+            'order' => $userOrder->load('orderItem.product')
+        ]);
     }
 
     /**
