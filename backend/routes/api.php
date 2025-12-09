@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,10 @@ Route::controller(AuthController::class)->group(function (){
     Route::post('/register', 'register');
     Route::post('/login', 'login');
     Route::post('/logout', 'logout')->middleware('auth:sanctum');
+});
+
+Route::middleware('auth:sanctum')->controller(UserController::class)->group(function (){
+    Route::put('/users/{userId}', 'update');
 });
 
 
