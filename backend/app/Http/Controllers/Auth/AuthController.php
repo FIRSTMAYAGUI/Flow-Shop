@@ -94,9 +94,7 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $token = $user->currentAccessToken();
-
-        $token->delete();
+        $user->currentAccessToken()->delete();
 
         return response()->json([
             'message' => 'User logged out',

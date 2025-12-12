@@ -125,23 +125,25 @@ class UserController extends Controller
         DB::beginTransaction();
 
         try {
+            //delete all favorite product of the user
             Favorites::where('user_id', $user->id)->delete();
 
-            //dd($userFavs);
-
             $userOrders = Orders::where('user_id', $user->id)->get();
-            //dd($userOrders);
 
             if($userOrders->isNotEmpty()){
-                OrderItem::whereIn('order_id', $userOrders->pluck('id'))->delete();
-                //dd($userOrderItems);
 
+                //delete all orders made by the user
+                OrderItem::whereIn('order_id', $userOrders->pluck('id'))->delete();
+
+                //delete all order items of that the user ordered
                 Orders::whereIn('id', $userOrders->pluck('id'))->delete();
-                //dd($userOrders);
             }
 
+            //delete all products created by user
             Product::where('user_id', $user->id)->delete();
-            //dd($userProduct);
+
+            //revoke all the user's token
+            $user->tokens()->delete();
 
             $user->delete();
 
