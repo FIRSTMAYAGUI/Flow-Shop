@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorites;
+use App\Models\OrderItem;
+use App\Models\Orders;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -86,5 +91,74 @@ class UserController extends Controller
             'message' => 'Password changed successfully',
             'status' => 'success'
         ]);
+    }
+
+    public function deleteUser(Request $request, string $userId){
+        $user = User::where('id', $userId)->first();
+
+        if(!$user){
+            return response()->json([
+                'message' => 'User doesn\'t exist',
+                'status' => 'failed',
+            ], 404);
+        }
+
+        $validateUserPwd = Validator::make($request->all(), [
+            'password' => 'required|string|min:8|max:255',
+        ]);
+
+        if($validateUserPwd->fails()){
+            return response()->json([
+                'message' => 'Failed to delete user',
+                'status' => 'failed',
+                'errors' => $validateUserPwd->errors(),
+            ], 422);
+        }
+
+        if(!Hash::check($request->password, $user->password)){
+            return response()->json([
+                'message' => 'Password is incorrect',
+                'status' => 'failed',
+            ], 403);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            Favorites::where('user_id', $user->id)->delete();
+
+            //dd($userFavs);
+
+            $userOrders = Orders::where('user_id', $user->id)->get();
+            //dd($userOrders);
+
+            if($userOrders->isNotEmpty()){
+                OrderItem::whereIn('order_id', $userOrders->pluck('id'))->delete();
+                //dd($userOrderItems);
+
+                Orders::whereIn('id', $userOrders->pluck('id'))->delete();
+                //dd($userOrders);
+            }
+
+            Product::where('user_id', $user->id)->delete();
+            //dd($userProduct);
+
+            $user->delete();
+
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Account deleted successfully',
+                'status' => 'success',
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => 'Server error during account deletion',
+                'status' => 'failed',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

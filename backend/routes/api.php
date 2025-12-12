@@ -22,6 +22,7 @@ Route::controller(AuthController::class)->group(function (){
 Route::middleware('auth:sanctum')->controller(UserController::class)->group(function (){
     Route::put('/users/{userId}', 'update');
     Route::post('/users/{userId}', 'changePassword');
+    Route::delete('/users/{userId}', 'deleteUser');
 });
 
 
