@@ -72,8 +72,37 @@ class OrdersController extends Controller
 
             foreach ($request->products as $p) {
                 $product = Product::find($p['product_id']);
+
+                if(!$product){
+                    throw new \Exception('Product not found');
+                }
+
+                $orderedQty = $p['quantity'] ;
+                $availableProductQty = $product->quantity;
+                //dd($availableProductQty);
+
+                if($availableProductQty < $orderedQty){
+                    throw new \Exception('The product "'.$product->name.'" of ID "'.$product->id.'" is out of stock');
+                }
+
+                $product->decrement('quantity', $orderedQty);
+
+                $product->refresh();
+
+                $currentQty = $product->quantity;
+
+                //$product->get('quantity');
+                //dd($currentQty);
+
+                if($currentQty <= 5 || $currentQty = 0){
+                    $product->update([
+                        'in_stock' => false
+                    ]);
+                }
+
                 $unit_price = $product->price;
-                $totalAmount += $p['quantity'] * $unit_price;
+
+                $totalAmount += $orderedQty * $unit_price;
             }
 
             $order = Orders::create([

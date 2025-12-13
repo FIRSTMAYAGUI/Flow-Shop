@@ -19,12 +19,11 @@ Route::controller(AuthController::class)->group(function (){
     Route::post('/logout', 'logout')->middleware('auth:sanctum');
 });
 
-Route::middleware('auth:sanctum')->controller(UserController::class)->group(function (){
-    Route::put('/users/{userId}', 'update');
-    Route::post('/users/{userId}', 'changePassword');
-    Route::delete('/users/{userId}', 'deleteUser');
+Route::middleware('auth:sanctum')->prefix('users')->controller(UserController::class)->group(function (){
+    Route::put('/{userId}', 'update');
+    Route::post('/{userId}', 'changePassword')->whereNumber('userId');
+    Route::delete('/{userId}', 'deleteUser');
 });
-
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{productId}', [ProductController::class, 'show']);
@@ -49,9 +48,9 @@ Route::middleware('auth:sanctum')->controller(FavoritesController::class)->group
     Route::delete('/favorites/{favoriteId}/{userId}', 'destroy');
 });
 
-Route::middleware('auth:sanctum')->controller(OrdersController::class)->group(function (){
-    Route::post('/users/orders', 'store');
-    Route::get('/users/orders/{userId}', 'index');
-    Route::get('/users/orders/{userId}/{orderId}', 'show');
-    Route::delete('/users/orders/{userId}/{orderId}', 'destroy');
+Route::middleware('auth:sanctum')->prefix('users/orders')->controller(OrdersController::class)->group(function (){
+    Route::post('/', 'store');
+    Route::get('/{userId}', 'index');
+    Route::get('/{userId}/{orderId}', 'show');
+    Route::delete('/{userId}/{orderId}', 'destroy');
 });
