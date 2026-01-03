@@ -1,16 +1,16 @@
-// import { Outlet } from "react-router-dom"
-// import Header from "../components/Header"
+
+import { Outlet } from "react-router-dom"
 import Navbar from "../components/Navbar"
 
-const AppLayout = ({children}: {children?: React.ReactNode}) => {
+const AppLayout = () => {
   return (
     <>
-      <header>
+      <header className="relative h-25 w-full">
         <Navbar color="text-default-black" borderColor="border-default-black"/>
       </header>
       
       <main>
-        {children}
+        <Outlet/>
       </main>
     </>
   )

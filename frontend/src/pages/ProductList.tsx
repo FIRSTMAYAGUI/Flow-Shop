@@ -1,9 +1,11 @@
+import Container from "../components/Container"
+import PageTitle from "../components/PageTitle"
 
 const ProductList = () => {
   return (
-    <div>
-      Product
-    </div>
+    <Container>
+      <PageTitle>Our Products</PageTitle>
+    </Container>
   )
 }
 
