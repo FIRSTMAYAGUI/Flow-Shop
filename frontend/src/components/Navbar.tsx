@@ -20,7 +20,7 @@ const Navbar = ({color, borderColor}:{color?: string, borderColor?: string}) => 
         {/* icons */}
         <div className="flex gap-10 items-center">
             <div className={`xl:flex gap-6 items-center hidden ${color}`}>
-                <Button className="cursor-pointer border-none p-0">
+                <Button className="border-none">
                     <Search className="icon"/>
                 </Button>
                 <Link to={'/'} className="icon">
@@ -33,10 +33,10 @@ const Navbar = ({color, borderColor}:{color?: string, borderColor?: string}) => 
 
             {/* Login and menu */}
             <div className={`flex sm:w-48 md:w-fit sm:justify-between gap-6 ${color}`}>   
-                <Button className={`login-btn ${borderColor}`}>
+                <Button className={`hover:border-hover hover:text-hover px-6 py-2 rounded-md ${borderColor}`}>
                     <Link to={'/'}>Login</Link>
                 </Button>
-                <Button className="xl:hidden cursor-pointer">
+                <Button className="xl:hidden border-none">
                     <Menu size={'45px'} className="icon"/>
                 </Button>
             </div>

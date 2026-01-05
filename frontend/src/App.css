@@ -25,7 +25,7 @@ body{
 }
 
 .logo{
-  @apply text-[2rem] font-extrabold bg-linear-to-r from-primary-color to-[#4f8cff] bg-clip-text text-transparent;
+  @apply text-[2rem] font-extrabold bg-linear-to-r from-primary-color to-secondary-color bg-clip-text text-transparent;
   /* font-size: clamp(1.5rem, 2em, 2.5rem); */
 }
 
@@ -35,14 +35,6 @@ body{
 
 .icon{
   @apply hover:text-hover hover:transition hover:delay-150
-}
-
-.btn{
-  @apply px-6 py-3 border text-white border-white md:px-8 md:py-3 rounded-md cursor-pointer transition delay-150 
-}
-
-.login-btn{
-  @apply transition delay-150 hover:border-hover hover:text-hover px-6 py-1 md:px-8 md:py-3 rounded-md cursor-pointer border
 }
 
 /* End of Navbar styling */
