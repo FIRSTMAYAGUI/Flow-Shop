@@ -4,6 +4,8 @@
   --color-primary-color: var(--primary-color);
   --color-secondary-color: var(--secondary-color);
   --color-default-black: var(--default-black);
+  --color-default-gray: var(--default-gray);
+  --color-light-gray: var(--light-gray);
   --color-hover: var(--primary-hover);
 }
 
@@ -12,6 +14,8 @@
   --secondary-color: #4f8cff;
   --primary-hover: #99b3ff;
   --default-black: #0e0d0de0;
+  --default-gray: #1e2939;
+  --light-gray: #6a7282;
 }
 
 body{

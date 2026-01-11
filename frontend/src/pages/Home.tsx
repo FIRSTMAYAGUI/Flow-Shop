@@ -1,4 +1,5 @@
 import Container from "../components/Container"
+import ProductCard from "../components/ProductCard"
 import SectionTitle from "../components/SectionTitle"
 
 const  Home = () => {
@@ -6,25 +7,15 @@ const  Home = () => {
     <Container>
       <div className="flex flex-col py-10 gap-18">
         <SectionTitle>Featured Products</SectionTitle>
-        <div className="w-full max-w-7xl mx-auto flex flex-wrap gap-8 justify-center 2xl:justify-between">
-          <div className="flex w-100 h-120 border">
-            
-          </div>
-          <div className="flex w-100 h-120 border">
-            
-          </div>
-          <div className="flex w-100 h-120 border">
-            
-          </div>
-          <div className="flex w-100 h-120 border">
-            
-          </div>
-          <div className="flex w-100 h-120 border">
-            
-          </div>
-          <div className="flex w-100 h-120 border">
-            
-          </div>
+        <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center ">
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
         </div>
       </div>
     </Container>
