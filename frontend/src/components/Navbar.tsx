@@ -1,13 +1,16 @@
 import { Menu ,Search, ShoppingCart, User } from "lucide-react"
 import { Link } from "react-router-dom"
 import Button from "./Button"
+import Logo from "./Logo"
 
 const Navbar = ({color, borderColor}:{color?: string, borderColor?: string}) => {
   return (
     <div className="navbar">
         
         {/* Logo */}
-        <Link to={'/'} className="logo">FlowShop</Link>
+        <Link to={'/'}>
+            <Logo/>
+        </Link>
 
         {/* nav links */}
         <nav className={`nav-link ${color}`}>
