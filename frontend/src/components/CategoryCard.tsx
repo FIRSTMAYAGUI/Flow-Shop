@@ -16,7 +16,7 @@ const CategoryCard = ({imageUrl, alt, categoryName}: CategoryProps) => {
         />
       </div>
 
-      <p className="w-full font-medium text-2xl p-8 text-center">
+      <p className="w-full font-medium text-2xl p-8 text-center text-default-black">
         {categoryName}
       </p>
     </div>
