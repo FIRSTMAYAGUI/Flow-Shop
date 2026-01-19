@@ -1,5 +1,6 @@
 import Container from "../components/Container"
 import PageTitle from "../components/PageTitle"
+import SearchInput from "../components/SearchInput"
 import SortInput from "../components/SortInput"
 
 const ProductList = () => {
@@ -9,13 +10,19 @@ const ProductList = () => {
 
       {/* All product cards paginated */}
       <Container>
+        <div className="w-full flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          
+          {/* Left: product count */}
+          <p className="text-lg font-medium text-default-gray">
+            9 <span className="text-gray-400">of</span> 20 products
+          </p>
 
-        <div>
-          {/* Number of products and sort input container */}
-          <div className="flex justify-between font-medium items-center">
-            <p className="text-2xl">9 of 20 products</p>
-            <SortInput/>
+          {/* Right: search + sort */}
+          <div className="flex flex-col sm:flex-row gap-8 sm:items-center">
+            <SearchInput />
+            <SortInput />
           </div>
+
         </div>
       </Container>
     </>
