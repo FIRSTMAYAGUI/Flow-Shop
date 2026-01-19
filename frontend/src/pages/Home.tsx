@@ -54,7 +54,7 @@ const  Home = () => {
 
           <div className="flex justify-center items-center">
             <Link to={'/product'}>
-              <Button className="border border-secondary-color text-secondary-color hover:border-primary-color hover:text-primary-color">View more</Button>
+              <Button className="border border-secondary-color text-secondary-color hover:border-primary-color hover:text-primary-color">See More</Button>
             </Link>
           </div>
         </div>

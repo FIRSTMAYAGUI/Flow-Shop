@@ -29,7 +29,7 @@ body{
 }
 
 .logo{
-  @apply text-[2rem] font-extrabold bg-linear-to-r from-primary-color to-secondary-color bg-clip-text text-transparent;
+  @apply text-[2rem] font-extrabold bg-linear-to-r from-primary-color to-hover bg-clip-text text-transparent;
   /* font-size: clamp(1.5rem, 2em, 2.5rem); */
 }
 
