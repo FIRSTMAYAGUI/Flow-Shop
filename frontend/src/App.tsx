@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import ProductList from './pages/ProductList'
 import AppLayout from './layouts/AppLayout'
 import HomeLayout from './layouts/HomeLayout'
+import Favorites from './pages/Favorites'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           </Route>
           <Route element={<AppLayout/>}>
             <Route path='/product' element={<ProductList />}/>
+            <Route path='/favorites' element={<Favorites/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

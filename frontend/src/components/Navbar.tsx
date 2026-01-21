@@ -1,4 +1,4 @@
-import { Menu ,Search, ShoppingCart, User } from "lucide-react"
+import { Heart, Menu, ShoppingCart, User } from "lucide-react"
 import { Link } from "react-router-dom"
 import Button from "./Button"
 import Logo from "./Logo"
@@ -23,9 +23,9 @@ const Navbar = ({color, borderColor}:{color?: string, borderColor?: string}) => 
         {/* icons */}
         <div className="flex gap-10 items-center">
             <div className={`xl:flex gap-6 items-center hidden ${color}`}>
-                <button className="">
-                    <Search className="icon"/>
-                </button>
+                <Link to="/favorites">
+                    <Heart className="icon"/>
+                </Link>
                 <Link to={'/'} className="icon">
                     <User />
                 </Link>

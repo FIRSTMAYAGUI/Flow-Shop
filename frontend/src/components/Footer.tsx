@@ -39,7 +39,7 @@ function Footer() {
           title="Useful Links"
           links={[
             {label: "Home", to: "/"}, 
-            {label: "Products", to: "/products"}, 
+            {label: "Products", to: "/product"}, 
             {label: "About", to: "/"}, 
             {label: "Contact", to: "/"}
           ]}
