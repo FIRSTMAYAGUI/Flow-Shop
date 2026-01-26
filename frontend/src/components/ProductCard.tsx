@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom'
 import Button from './Button'
-import { ShoppingCart } from 'lucide-react'
+import { Heart, ShoppingCart } from 'lucide-react'
 
 type ProductCardProps = {
     imageUrl : string
@@ -13,7 +13,15 @@ type ProductCardProps = {
 
 const ProductCard = ({imageUrl, alt, productName, categoryName, price}: ProductCardProps) => {
   return (
-    <div className="w-75 bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition"> 
+    <div className="relative w-75 bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition"> 
+
+      {/* Favorite icon */}
+      <button
+        className="absolute top-4 right-4 z-10 bg-white/90 p-2 rounded-full shadow hover:bg-primary-color hover:text-white transition"
+        aria-label="Add to favorites"
+      >
+        <Heart size={18} />
+      </button>
       {/* Image */}
       <Link to={'/product-detail'}>
         <div className="h-90 w-full overflow-hidden cursor-pointer">
