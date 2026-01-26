@@ -29,7 +29,8 @@ const Navbar = ({color, borderColor}:{color?: string, borderColor?: string}) => 
                 <Link to={'/'} className="icon">
                     <User />
                 </Link>
-                <Link to={'/'} className="icon">
+                <Link to={'/'} className="icon relative p-3">
+                    <span className="absolute right-1 top-1 text-sm text-white bg-red-500 w-5 h-5 text-center  rounded-full">3</span>
                     <ShoppingCart/>
                 </Link>
             </div>
