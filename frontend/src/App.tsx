@@ -8,6 +8,7 @@ import Favorites from './pages/Favorites'
 import ProductDetail from './pages/ProductDetail'
 import CartPage from './pages/CartPage'
 import OrdersPage from './pages/OrdersPage'
+import SignupPage from './pages/auth/SignupPage'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
             <Route path='/cart' element={<CartPage/>}/>
             <Route path='/orders' element={<OrdersPage/>}/>
           </Route>
+          <Route path='/signup' element={<SignupPage/>}/>
         </Routes>
       </BrowserRouter>
     </>

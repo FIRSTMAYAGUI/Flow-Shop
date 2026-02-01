@@ -1,0 +1,103 @@
+import Button from "../components/Button"
+import Logo from "../components/Logo"
+
+const AuthLayout = ({
+  source,
+  alt,
+  message,
+  MsgOption,
+  action = 'Submit',
+  children,
+}: {
+  source: string
+  alt: string
+  message: string
+  MsgOption: string
+  action?: string
+  children: React.ReactNode
+}) => {
+  return (
+    <div className="min-h-screen flex">
+
+      {/* Image section */}
+      <div className="hidden lg:block lg:w-1/2 relative">
+        <img
+          src={source}
+          alt={alt || 'auth-image'}
+          className="w-full h-full object-cover"
+        />
+        {/* overlay */}
+        <div className="absolute inset-0 bg-black/30" />
+      </div>
+
+      {/* Form section */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-10">
+
+        <div className="w-full max-w-md space-y-8">
+
+          {/* Logo */}
+          <Logo />
+
+          {/* Title */}
+          <div className="space-y-2">
+            <h1 className="text-3xl font-extrabold text-default-gray">
+              {message}
+            </h1>
+            <p className="text-gray-500">
+              Please enter your details to continue
+            </p>
+          </div>
+
+          <form className="space-y-6">
+
+            {/* OAuth (Google, etc.) */}
+            <div className="mb-6">
+                <Button className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-2.5 hover:bg-gray-50 transition"
+                >
+                <img src="/icons/google.svg" alt="Google" className="w-5 h-5" />
+                <span className="text-sm font-medium text-gray-700">
+                    {MsgOption} with Google
+                </span>
+                </Button>
+            </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-4">
+              <div className="flex-1 h-px bg-neutral-200" />
+              <span className="text-sm text-gray-400">or</span>
+              <div className="flex-1 h-px bg-neutral-200" />
+            </div>
+
+            {/* inputs */}
+            <div className="my-4 text-center text-sm font-medium text-gray-700">{MsgOption} with Email</div>
+            <div className="space-y-4">
+              {children}
+            </div>
+
+            {/* Remember me / Forgot password */}
+            <div className="flex items-center justify-between text-sm text-gray-500">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" className="accent-primary-color" />
+                Remember me
+              </label>
+
+              <a
+                href="#"
+                className="hover:text-primary-color transition"
+              >
+                Forgot password?
+              </a>
+            </div>
+
+            {/* Submit button */}
+            <Button className="w-full bg-primary-color text-white py-3 rounded-xl font-semibold hover:bg-primary-color/90 transition">
+              {action}
+            </Button>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default AuthLayout
