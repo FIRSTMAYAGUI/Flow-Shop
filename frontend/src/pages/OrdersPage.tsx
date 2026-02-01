@@ -1,3 +1,4 @@
+import Button from '../components/Button'
 import Container from '../components/Container'
 import PageTitle from '../components/PageTitle'
 import SearchInput from '../components/SearchInput'
@@ -19,17 +20,17 @@ const OrdersPage = () => {
         </div>
 
         {/* Orders list */}
-        <div className="space-y-8">
+        <div className="space-y-16">
 
           {/* Single Order */}
-          <div className="bg-white overflow-hidden mt-4">
+          <div className="bg-white overflow-hidden">
 
             {/* Order header */}
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 px-6 py-5 bg-neutral-50 mb-8">
 
               <div>
                 <p className="text-xs uppercase tracking-wide text-gray-400">
-                  Order placed
+                  Date of order
                 </p>
                 <p className="text-base font-semibold text-default-gray">
                   March 12, 2025
@@ -403,6 +404,46 @@ const OrdersPage = () => {
             </div>
 
           </div>
+        </div>
+
+        {/* pagination UI */}
+        <div className="mt-12 flex justify-center items-center gap-3">
+          
+          {/* Previous */}
+          <Button
+            className="px-4 py-2 border border-neutral-300 rounded-md text-sm hover:bg-gray-100 transition"
+          >
+            Prev
+          </Button>
+
+          {/* Page numbers */}
+          <button className="px-4 py-2 rounded-md text-sm border border-neutral-300 bg-primary-color text-white">
+            1
+          </button>
+
+          <button className="px-4 py-2 rounded-md text-sm border border-neutral-300 hover:bg-gray-100 transition">
+            2
+          </button>
+
+          <button className="px-4 py-2 rounded-md text-sm border border-neutral-300 hover:bg-gray-100 transition">
+            3
+          </button>
+
+          <button className="px-4 py-2 rounded-md text-sm border border-neutral-300 hover:bg-gray-100 transition">
+            4
+          </button>
+
+          <button className="px-4 py-2 rounded-md text-sm border border-neutral-300 hover:bg-gray-100 transition">
+            5
+          </button>
+
+          {/* Next */}
+          <Button
+            className="px-4 py-2 border border-neutral-300 rounded-md text-sm hover:bg-gray-100 transition"
+          >
+            Next
+          </Button>
+
         </div>
       </Container>
     </>
