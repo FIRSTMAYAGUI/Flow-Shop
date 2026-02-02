@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom"
 import Button from "../components/Button"
 import Logo from "../components/Logo"
+import GoogleLogo from "../assets/icons/google-icon.svg"
 
 const AuthLayout = ({
   source,
@@ -27,7 +29,7 @@ const AuthLayout = ({
           className="w-full h-full object-cover"
         />
         {/* overlay */}
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-default-black/30" />
       </div>
 
       {/* Form section */}
@@ -36,7 +38,9 @@ const AuthLayout = ({
         <div className="w-full max-w-md space-y-8">
 
           {/* Logo */}
-          <Logo />
+          <Link to={'/'}>
+            <Logo/>
+          </Link>
 
           {/* Title */}
           <div className="space-y-2">
@@ -54,7 +58,7 @@ const AuthLayout = ({
             <div className="mb-6">
                 <Button className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-2.5 hover:bg-gray-50 transition"
                 >
-                <img src="/icons/google.svg" alt="Google" className="w-5 h-5" />
+                <img src={GoogleLogo} alt="Google" className="w-5 h-5" />
                 <span className="text-sm font-medium text-gray-700">
                     {MsgOption} with Google
                 </span>
@@ -81,12 +85,12 @@ const AuthLayout = ({
                 Remember me
               </label>
 
-              <a
-                href="#"
+              <Link
+                to="#"
                 className="hover:text-primary-color transition"
               >
                 Forgot password?
-              </a>
+              </Link>
             </div>
 
             {/* Submit button */}

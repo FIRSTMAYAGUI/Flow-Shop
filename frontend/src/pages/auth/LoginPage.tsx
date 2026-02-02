@@ -1,5 +1,5 @@
 import AuthLayout from '../../layouts/AuthLayout'
-import WomanSmilling from "../../assets/brunette-haired-woman-smiling.jpg"
+import WomanSmilling from "../../assets/images/brunette-haired-woman-smiling.jpg"
 
 const LoginPage = () => {
   return (

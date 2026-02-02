@@ -1,13 +1,13 @@
 import Container from "../components/Container"
 /* import  WomanShop  from "../assets/woman-shop.jpg" */
-import GirlWithHeadset from "../assets/girl-with-headset.jpg"
+import GirlWithHeadset from "../assets/images/girl-with-headset.jpg"
 import { Heart, ShoppingCart, Minus, Plus } from "lucide-react"
 import Button from "../components/Button"
 import ProductCard from "../components/ProductCard"
-import  WomanShop  from "../assets/woman-shop.jpg"
-import  WomanWithGlasses  from "../assets/woman-infront-building.jpg"
-import GameController from "../assets/gaming-controllers.jpg"
-import Technology from "../assets/technology.jpg"
+import  WomanShop  from "../assets/images/woman-shop.jpg"
+import  WomanWithGlasses  from "../assets/images/woman-infront-building.jpg"
+import GameController from "../assets/images/gaming-controllers.jpg"
+import Technology from "../assets/images/technology.jpg"
 import SectionTitle from "../components/SectionTitle"
 
 const ProductDetail = () => {

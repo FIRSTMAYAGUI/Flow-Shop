@@ -2,9 +2,9 @@ import { Heart, Minus, Plus, Trash } from 'lucide-react'
 import Button from '../components/Button'
 import Container from '../components/Container'
 import PageTitle from '../components/PageTitle'
-import GirlWithHeadset from "../assets/girl-with-headset.jpg"
-import  WomanWithGlasses  from "../assets/woman-infront-building.jpg"
-import GameController from "../assets/gaming-controllers.jpg"
+import GirlWithHeadset from "../assets/images/girl-with-headset.jpg"
+import  WomanWithGlasses  from "../assets/images/woman-infront-building.jpg"
+import GameController from "../assets/images/gaming-controllers.jpg"
 import { Link } from 'react-router-dom'
 /* import Technology from "../assets/technology.jpg" */
 
