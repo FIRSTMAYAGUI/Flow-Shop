@@ -9,6 +9,7 @@ const AuthLayout = ({
   message,
   MsgOption,
   action = 'Submit',
+  ifAccountOrNot,
   children,
 }: {
   source: string
@@ -16,6 +17,7 @@ const AuthLayout = ({
   message: string
   MsgOption: string
   action?: string
+  ifAccountOrNot: React.ReactNode
   children: React.ReactNode
 }) => {
   return (
@@ -97,6 +99,9 @@ const AuthLayout = ({
             <Button className="w-full bg-primary-color text-white py-3 rounded-xl font-semibold hover:bg-primary-color/90 transition">
               {action}
             </Button>
+            <div className="text-gray-500 text-center">
+              {ifAccountOrNot}
+            </div>
           </form>
         </div>
       </div>

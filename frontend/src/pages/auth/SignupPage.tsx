@@ -10,6 +10,11 @@ const SignupPage = () => {
       message="Create your account"
       MsgOption="Signup"
       action="Sign up"
+      ifAccountOrNot={
+        <div>
+          Already have an account? <Link to='/login' className="text-primary-color font-medium cursor-pointer">Login</Link>
+        </div>
+      }
     >
 
       {/* Signup with email */}
