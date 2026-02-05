@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom"
 import Logo from "./Logo"
-import { Facebook, Github, Instagram, Youtube } from "lucide-react"
+import FacebookIcon from "../assets/icons/facebook.svg"
+import YoutubeIcon from "../assets/icons/youtube-icon.svg"
+import GithubIcon from "../assets/icons/github-icon.svg"
+import { Instagram } from "lucide-react"
+
+
 import FooterColumnLinks from "./FooterColumnLinks"
 
 function Footer() {
@@ -18,20 +23,24 @@ function Footer() {
           </p>
 
           {/* Socials */}
-          <div className="flex gap-6 mt-8 *:hover:text-secondary-color *:hover:transition *:hover:delay-150">
-            <Link to="">
-              <Facebook />
+          <div className="flex gap-6 mt-8">
+            <Link to="" className="hover:opacity-80 transition">
+              <img src={FacebookIcon} alt="Facebook" className="h-6 w-6" />
             </Link>
-            <Link to="">
-              <Instagram />
+
+            <Link to="" className="hover:opacity-80 transition">
+              <Instagram/>
             </Link>
-            <Link to="">
-              <Youtube />
+
+            <Link to="" className="hover:opacity-80 transition">
+              <img src={YoutubeIcon} alt="YouTube" className="h-6 w-6" />
             </Link>
-            <Link to="">
-              <Github />
+
+            <Link to="" className="hover:opacity-80 transition">
+              <img src={GithubIcon} alt="GitHub" className="h-6 w-6" />
             </Link>
           </div>
+
         </div>
 
         {/* Links column */}
