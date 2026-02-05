@@ -209,10 +209,10 @@ const CartPage = () => {
               <span className="text-primary-color">5500 FCFA</span>
             </div>
 
-            <Link to={''}>
-                <Button className="w-full bg-primary-color border-0 text-white py-3 rounded-xl hover:bg-primary-color/80 transition">
-                Checkout
-                </Button>
+            <Link to='/checkout'>
+              <Button className="w-full bg-primary-color border-0 text-white py-3 rounded-xl hover:bg-primary-color/80 transition">
+              Checkout
+              </Button>
             </Link>
           </div>
 

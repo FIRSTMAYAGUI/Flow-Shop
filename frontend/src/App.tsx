@@ -10,6 +10,7 @@ import CartPage from './pages/CartPage'
 import OrdersPage from './pages/OrdersPage'
 import SignupPage from './pages/auth/SignupPage'
 import LoginPage from './pages/auth/LoginPage'
+import CheckoutPage from './pages/CheckoutPage'
 
 function App() {
 
@@ -26,9 +27,11 @@ function App() {
             <Route path='/favorites' element={<Favorites/>}/>
             <Route path='/cart' element={<CartPage/>}/>
             <Route path='/orders' element={<OrdersPage/>}/>
+            <Route path='/checkout' element={<CheckoutPage/>}/>
           </Route>
           <Route path='/signup' element={<SignupPage/>}/>
           <Route path='/login' element={<LoginPage/>}/>
+          
         </Routes>
       </BrowserRouter>
     </>

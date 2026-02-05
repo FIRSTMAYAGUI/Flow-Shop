@@ -38,7 +38,7 @@ const Navbar = ({color, borderColor}:{color?: string, borderColor?: string}) => 
             {/* Login and menu */}
             <div className={`flex sm:w-48 md:w-fit sm:justify-between gap-6 ${color}`}>   
                 <Button className={`hover:border-hover hover:text-hover px-6 py-2 rounded-md ${borderColor}`}>
-                    <Link to={'/'}>Login</Link>
+                    <Link to='/login'>Login</Link>
                 </Button>
                 <Button className="xl:hidden border-none">
                     <Menu size={'45px'} className="icon"/>
