@@ -1,7 +1,9 @@
-import { CreditCard, MapPin } from "lucide-react"
+import { CreditCard, MapPin, Truck } from "lucide-react"
 import Button from "../components/Button"
 import Container from "../components/Container"
 import PageTitle from "../components/PageTitle"
+import PaypalLogo from "../assets/icons/paypal.svg"
+import StripeLogo from "../assets/icons/stripe.svg"
 
 const CheckoutPage = () => {
   return (
@@ -47,6 +49,50 @@ const CheckoutPage = () => {
               </div>
             </div>
 
+            {/* 🚚 Delivery Option */}
+            <div className="bg-white rounded-2xl shadow-sm p-6 space-y-6">
+              <div className="flex items-center gap-3">
+                <Truck className="text-primary-color" />
+                <h2 className="text-xl font-semibold text-default-gray">
+                  Delivery Option
+                </h2>
+              </div>
+
+              <div className="space-y-4">
+                <label className="flex items-center justify-between gap-4 border border-gray-400 rounded-lg p-4 cursor-pointer hover:border-primary-color transition">
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      name="delivery"
+                      className="accent-primary-color"
+                    />
+                    <span className="font-medium text-default-gray">
+                      Home Delivery
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-500">
+                    Free
+                  </span>
+                </label>
+
+                <label className="flex items-center justify-between gap-4 border border-gray-400 rounded-lg p-4 cursor-pointer hover:border-primary-color transition">
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      name="delivery"
+                      className="accent-primary-color"
+                    />
+                    <span className="font-medium text-default-gray">
+                      Pickup Point
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-500">
+                    1,000 FCFA
+                  </span>
+                </label>
+              </div>
+            </div>
+
             {/* Payment Method */}
             <div className="bg-white rounded-2xl shadow-sm p-6 space-y-6">
               <div className="flex items-center gap-3">
@@ -57,26 +103,43 @@ const CheckoutPage = () => {
               </div>
 
               <div className="space-y-4">
-                <label className="flex items-center gap-3 border rounded-lg p-4 cursor-pointer hover:border-primary-color transition">
+                <label className="flex items-center gap-3 border border-gray-400 rounded-lg p-4 cursor-pointer hover:border-primary-color transition">
                   <input type="radio" name="payment" className="accent-primary-color" />
                   <span className="font-medium text-default-gray">
                     Cash on Delivery
                   </span>
                 </label>
 
-                <label className="flex items-center gap-3 border rounded-lg p-4 cursor-pointer hover:border-primary-color transition">
+                <label className="flex items-center gap-3 border border-gray-400 rounded-lg p-4 cursor-pointer hover:border-primary-color transition">
                   <input type="radio" name="payment" className="accent-primary-color" />
                   <span className="font-medium text-default-gray">
                     Mobile Money
                   </span>
                 </label>
 
-                <label className="flex items-center gap-3 border rounded-lg p-4 cursor-pointer hover:border-primary-color transition">
-                  <input type="radio" name="payment" className="accent-primary-color" />
-                  <span className="font-medium text-default-gray">
-                    Card Payment
-                  </span>
+                <label className="flex items-center justify-between gap-4 border border-gray-400 rounded-lg p-4 cursor-pointer hover:border-primary-color transition">
+                  <div className="flex items-center gap-3">
+                    <input type="radio" name="payment" className="accent-primary-color" />
+                    <span className="font-medium text-default-gray">
+                      Card Payment
+                    </span>
+                  </div>
+
+                  {/* Logos */}
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={PaypalLogo}
+                      alt="PayPal"
+                      className="h-6 object-contain"
+                    />
+                    <img
+                      src={StripeLogo}
+                      alt="Stripe"
+                      className="h-6 object-contain"
+                    />
+                  </div>
                 </label>
+
               </div>
             </div>
           </div>
@@ -89,7 +152,6 @@ const CheckoutPage = () => {
                 Order Summary
               </h2>
 
-              {/* Items */}
               <div className="space-y-4">
                 <div className="flex justify-between text-sm text-gray-500">
                   <span>Products (3)</span>
@@ -101,9 +163,8 @@ const CheckoutPage = () => {
                 </div>
               </div>
 
-              <hr />
+              <hr className="border-gray-200" />
 
-              {/* Total */}
               <div className="flex justify-between text-lg font-bold">
                 <span>Total</span>
                 <span className="text-primary-color">12,000 FCFA</span>
