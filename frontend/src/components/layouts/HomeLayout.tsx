@@ -1,7 +1,7 @@
-import Container from '../components/Container'
-import Footer from '../components/Footer'
-import GuestNavbar from '../components/GuestNavbar'
-import Hero from '../components/Hero'
+import Container from '../Container'
+import Footer from './Footer'
+import GuestNavbar from './GuestNavbar'
+import Hero from '../Hero'
 //import Navbar from '../components/Navbar'
 import { Outlet } from 'react-router-dom'
 

@@ -1,7 +1,7 @@
 import { Heart, Menu, ShoppingCart } from "lucide-react"
 import { Link } from "react-router-dom"
-import Button from "./Button"
-import Logo from "./Logo"
+import Button from "../Button"
+import Logo from "../Logo"
 
 const GuestNavbar = ({ color, borderColor }: { color?: string; borderColor?: string }) => {
   return (

@@ -1,4 +1,4 @@
-import AuthLayout from "../../layouts/AuthLayout"
+import AuthLayout from "../../components/layouts/AuthLayout"
 import WomanSmilling from "../../assets/images/brunette-haired-woman-smiling.jpg"
 import { Link } from "react-router-dom"
 
