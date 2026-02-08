@@ -1,13 +1,13 @@
-
 import { Outlet } from "react-router-dom"
-import Navbar from "../components/Navbar"
+//import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
+import GuestNavbar from "../components/GuestNavbar"
 
 const AppLayout = () => {
   return (
     <>
       <header className="relative h-25 w-full">
-        <Navbar color="text-default-black" borderColor="border-default-black"/>
+        <GuestNavbar color="text-default-black" borderColor="border-default-black"/>
       </header>
       
       <main>
