@@ -1,6 +1,7 @@
 import AuthLayout from "../../components/layouts/AuthLayout"
 import WomanSmilling from "../../assets/images/brunette-haired-woman-smiling.jpg"
 import { Link } from "react-router-dom"
+import Button from "../../components/Button"
 
 const SignupPage = () => {
   return (
@@ -9,7 +10,11 @@ const SignupPage = () => {
       alt="Signup illustration"
       message="Create your account"
       MsgOption="Signup"
-      action="Sign up"
+      button={
+        <Button className="w-full bg-primary-color text-white py-3 rounded-xl font-semibold hover:bg-primary-color/90 transition" >
+          Sign up
+        </Button>
+      }
       ifAccountOrNot={
         <div>
           Already have an account? <Link to='/login' className="text-primary-color font-medium cursor-pointer">Login</Link>

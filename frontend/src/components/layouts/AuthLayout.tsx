@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom"
 import Button from "../Button"
 import Logo from "../Logo"
-import GoogleLogo from "../assets/icons/google-icon.svg"
+import GoogleLogo from "../../assets/icons/google-icon.svg"
 
 const AuthLayout = ({
   source,
   alt,
   message,
   MsgOption,
-  action = 'Submit',
+  button,
   ifAccountOrNot,
   children,
 }: {
@@ -16,7 +16,7 @@ const AuthLayout = ({
   alt: string
   message: string
   MsgOption: string
-  action?: string
+  button: React.ReactNode
   ifAccountOrNot: React.ReactNode
   children: React.ReactNode
 }) => {
@@ -58,13 +58,13 @@ const AuthLayout = ({
 
             {/* OAuth (Google, etc.) */}
             <div className="mb-6">
-                <Button className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-2.5 hover:bg-gray-50 transition"
-                >
+              <Button className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-2.5 hover:bg-gray-50 transition"
+              >
                 <img src={GoogleLogo} alt="Google" className="w-5 h-5" />
                 <span className="text-sm font-medium text-gray-700">
-                    {MsgOption} with Google
+                  {MsgOption} with Google
                 </span>
-                </Button>
+              </Button>
             </div>
 
             {/* Divider */}
@@ -96,9 +96,9 @@ const AuthLayout = ({
             </div>
 
             {/* Submit button */}
-            <Button className="w-full bg-primary-color text-white py-3 rounded-xl font-semibold hover:bg-primary-color/90 transition">
-              {action}
-            </Button>
+            <div>
+              {button}
+            </div>
             <div className="text-gray-500 text-center">
               {ifAccountOrNot}
             </div>

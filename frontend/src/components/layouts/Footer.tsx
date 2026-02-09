@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
 import Logo from "../Logo"
-import FacebookIcon from "../assets/icons/facebook.svg"
-import YoutubeIcon from "../assets/icons/youtube-icon.svg"
-import GithubIcon from "../assets/icons/github-icon.svg"
+import FacebookIcon from "../../assets/icons/facebook.svg"
+import YoutubeIcon from "../../assets/icons/youtube-icon.svg"
+import GithubIcon from "../../assets/icons/github-icon.svg"
 import { Instagram } from "lucide-react"
 
 
