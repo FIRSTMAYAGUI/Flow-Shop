@@ -11,6 +11,7 @@ import OrdersPage from './pages/OrdersPage'
 import SignupPage from './pages/auth/SignupPage'
 import LoginPage from './pages/auth/LoginPage'
 import CheckoutPage from './pages/CheckoutPage'
+import NotFoundPage from './pages/404Page'
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
           </Route>
           <Route path='/signup' element={<SignupPage/>}/>
           <Route path='/login' element={<LoginPage/>}/>
+          <Route path='/404' element={<NotFoundPage/>}/>
           
         </Routes>
       </BrowserRouter>
