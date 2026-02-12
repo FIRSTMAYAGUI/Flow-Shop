@@ -6,6 +6,7 @@ import type { LoginPayload } from '../../features/auth/authTypes'
 import Button from '../../components/Button'
 import { useAuthStore } from '../../features/auth/store/authStore'
 import { useState } from 'react'
+import { ClipLoader } from 'react-spinners'
 
 const LoginPage = () => {
 
@@ -41,7 +42,15 @@ const LoginPage = () => {
         onClick={onSubmit}
         disabled={isLoading ? true : false}
         >
-          {isLoading ? 'Log in ....' : 'Log in'}
+          {
+          isLoading ? 
+          (
+            <>
+              <ClipLoader size={18} color="#ffffff" />
+              <span>Logging in...</span>
+            </>
+          ) : 'Log in'
+          }
         </Button>
       }
       ifAccountOrNot={
