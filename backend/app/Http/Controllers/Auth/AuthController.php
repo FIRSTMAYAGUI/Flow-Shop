@@ -38,7 +38,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('userToken')->plainTextToken;
 
-        Mail::to($user)->send(new WelcomeMail($user));
+        //Mail::to($user)->send(new WelcomeMail($user));
 
         return response()->json([
             'message' => 'user created successfully a message was sent to your email',

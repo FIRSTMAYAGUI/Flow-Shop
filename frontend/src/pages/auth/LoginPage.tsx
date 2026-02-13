@@ -9,12 +9,11 @@ import { useState } from 'react'
 import { ClipLoader } from 'react-spinners'
 
 const LoginPage = () => {
-
   const [ isLoading, setIsLoading ] = useState(false);
   const { register, handleSubmit, formState: { errors }} = useForm<LoginPayload>();
   const { user, error, login } = useAuthStore();
   const navigate = useNavigate();
-  console.log("user first : ", user)
+  console.log("user data: ", user)
 
   const onSubmit = handleSubmit(async (data) => {
     setIsLoading(true)
@@ -65,7 +64,7 @@ const LoginPage = () => {
         <input
           type="email"
           placeholder="Email address"
-          className={`w-full border rounded-lg px-4 py-2.5 text-sm  ${errors.email ? "border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500" : "border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary-color"}`}
+          className={`w-full border rounded-lg px-4 py-2.5 text-sm ${errors.email ? "border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500" : "border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary-color"}`}
 
           {...register("email", { 
               required: "Email is required", 
@@ -108,6 +107,22 @@ const LoginPage = () => {
 
         {error && <p className="text-sm text-red-500">{error}</p>}
       </div>
+
+      {/* Remember me / Forgot password */}
+      <div className="flex items-center justify-between text-sm text-gray-500">
+        <label className="flex items-center gap-2">
+          <input type="checkbox" className="accent-primary-color" />
+          Remember me
+        </label>
+
+        <Link
+          to="#"
+          className="hover:text-primary-color transition"
+        >
+          Forgot password?
+        </Link>
+      </div>
+
     </AuthLayout>
     </>
   )

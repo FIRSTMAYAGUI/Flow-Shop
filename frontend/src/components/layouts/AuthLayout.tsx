@@ -80,21 +80,6 @@ const AuthLayout = ({
               {children}
             </div>
 
-            {/* Remember me / Forgot password */}
-            <div className="flex items-center justify-between text-sm text-gray-500">
-              <label className="flex items-center gap-2">
-                <input type="checkbox" className="accent-primary-color" />
-                Remember me
-              </label>
-
-              <Link
-                to="#"
-                className="hover:text-primary-color transition"
-              >
-                Forgot password?
-              </Link>
-            </div>
-
             {/* Submit button */}
             <div>
               {button}
