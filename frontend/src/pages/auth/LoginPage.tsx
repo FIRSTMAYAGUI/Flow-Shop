@@ -12,24 +12,23 @@ const LoginPage = () => {
 
   const [ isLoading, setIsLoading ] = useState(false);
   const { register, handleSubmit, formState: { errors }} = useForm<LoginPayload>();
-  const { user, login } = useAuthStore();
+  const { user, error, login } = useAuthStore();
   const navigate = useNavigate();
   console.log("user first : ", user)
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data)
     setIsLoading(true)
     try {
-      await login(data)
-      navigate("/")
+      const successfullLogin = await login(data)
+      if(successfullLogin){ 
+        navigate("/")
+      }
     } catch (error) {
       console.error(error)
     } finally {
-      console.log('user is: ', user)
       setIsLoading(false)
     }
   })
-
 
   return (
     <>
@@ -69,13 +68,16 @@ const LoginPage = () => {
           className={`w-full border rounded-lg px-4 py-2.5 text-sm  ${errors.email ? "border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500" : "border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary-color"}`}
 
           {...register("email", { 
-            required: "Email is required", 
-            maxLength: {
-              value: 100,
-              message: "Email is too long",
-            }, 
-            
-          })
+              required: "Email is required", 
+              maxLength: {
+                value: 100,
+                message: "Email is too long",
+              }, 
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email address",
+              },
+            })
           }
         />
         {errors.email && (
@@ -103,6 +105,8 @@ const LoginPage = () => {
             {errors.password.message}
           </p>
         )}
+
+        {error && <p className="text-sm text-red-500">{error}</p>}
       </div>
     </AuthLayout>
     </>
