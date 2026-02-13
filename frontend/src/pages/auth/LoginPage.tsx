@@ -1,6 +1,6 @@
 import AuthLayout from '../../components/layouts/AuthLayout'
 import WomanSmilling from "../../assets/images/brunette-haired-woman-smiling.jpg"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import type { LoginPayload } from '../../features/auth/authTypes'
 import Button from '../../components/Button'
@@ -10,22 +10,23 @@ import { ClipLoader } from 'react-spinners'
 
 const LoginPage = () => {
 
-  const [ isLoading, setIsLoading ] = useState(false)
-
+  const [ isLoading, setIsLoading ] = useState(false);
   const { register, handleSubmit, formState: { errors }} = useForm<LoginPayload>();
-
   const { user, login } = useAuthStore();
+  const navigate = useNavigate();
+  console.log("user first : ", user)
 
   const onSubmit = handleSubmit(async (data) => {
     console.log(data)
     setIsLoading(true)
     try {
       await login(data)
-      console.log('user: ', user)
-      setIsLoading(false)
-      // later: navigate("/") or dashboard
+      navigate("/")
     } catch (error) {
       console.error(error)
+    } finally {
+      console.log('user is: ', user)
+      setIsLoading(false)
     }
   })
 
@@ -38,18 +39,18 @@ const LoginPage = () => {
       message="Welcome back"
       MsgOption="Login"
       button={
-        <Button className="w-full bg-primary-color text-white py-3 rounded-xl font-semibold hover:bg-primary-color/90 transition" 
+        <Button className="w-full bg-primary-color hover:bg-primary-color/90 text-white py-3 rounded-xl font-semibold transition flex justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed" 
         onClick={onSubmit}
-        disabled={isLoading ? true : false}
+        disabled={isLoading}
         >
           {
-          isLoading ? 
-          (
-            <>
-              <ClipLoader size={18} color="#ffffff" />
-              <span>Logging in...</span>
-            </>
-          ) : 'Log in'
+            isLoading ? 
+            (
+              <>
+                <ClipLoader size={20} color="#ffffff" />
+                <span>Logging in...</span>
+              </>
+            ) : 'Log in'
           }
         </Button>
       }
@@ -72,7 +73,9 @@ const LoginPage = () => {
             maxLength: {
               value: 100,
               message: "Email is too long",
-            }, })
+            }, 
+            
+          })
           }
         />
         {errors.email && (

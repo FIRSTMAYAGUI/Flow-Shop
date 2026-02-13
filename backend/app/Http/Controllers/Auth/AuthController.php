@@ -73,7 +73,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('userToken')->plainTextToken;
 
-        Mail::to($user)->send(new LoginSuccessMail($user));
+        //Mail::to($user)->send(new LoginSuccessMail($user));
 
         return response()->json([
             'message' => 'User login successfully',

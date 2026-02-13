@@ -20,11 +20,11 @@ export const useAuthStore = create<AuthState>((set) => ({
     setUser: (user)=>set({user}),
 
     login: async (data) => {
-        const res = await login(data);
-        console.log("response from auth service: ", res.data)
-        console.log("token: ", res.token)
-        const localToken = localStorage.setItem("token", res.token);
-        console.log(localToken)
-        set({ user: res.data });
+      const res = await login(data);
+      console.log("response from auth service: ", res.data)
+      console.log("token: ", res.token)
+      localStorage.setItem("token", res.token);
+      console.log(localStorage.getItem("token")) //this is undefined I don't know why
+      set({ user: res.data });
     },
 }))

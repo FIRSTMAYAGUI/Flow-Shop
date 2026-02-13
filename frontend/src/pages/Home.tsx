@@ -12,6 +12,7 @@ import { Link } from "react-router-dom"
 import CategoryCard from "../components/CategoryCard"
 
 const  Home = () => {
+
   return (
     <>
     {/* Product Section */}
