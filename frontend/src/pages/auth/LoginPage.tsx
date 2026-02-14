@@ -7,20 +7,56 @@ import Button from '../../components/Button'
 import { useAuthStore } from '../../features/auth/store/authStore'
 import { useState } from 'react'
 import { ClipLoader } from 'react-spinners'
+import toast, { Toaster } from 'react-hot-toast'
 
 const LoginPage = () => {
   const [ isLoading, setIsLoading ] = useState(false);
   const { register, handleSubmit, formState: { errors }} = useForm<LoginPayload>();
-  const { user, error, login } = useAuthStore();
+  const { error, login } = useAuthStore();
   const navigate = useNavigate();
-  console.log("user data: ", user)
 
   const onSubmit = handleSubmit(async (data) => {
     setIsLoading(true)
     try {
       const successfullLogin = await login(data)
-      if(successfullLogin){ 
+      if(successfullLogin){
+        toast.success('Login Successfull', {
+          duration: 3000,
+          position: 'top-right',
+
+          // Styling
+          style: {},
+          className: 'w-45',
+
+          // Aria
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+
+          // Additional Configuration
+          removeDelay: 1000,
+        })
+
         navigate("/")
+      } else{
+        toast.error('Login failed', {
+          duration: 3000,
+          position: 'top-right',
+
+          // Styling
+          style: {},
+          className: 'w-40',
+
+          // Aria
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+
+          // Additional Configuration
+          removeDelay: 1000,
+        })
       }
     } catch (error) {
       console.error(error)
@@ -121,6 +157,8 @@ const LoginPage = () => {
         >
           Forgot password?
         </Link>
+
+        <Toaster />
       </div>
 
     </AuthLayout>

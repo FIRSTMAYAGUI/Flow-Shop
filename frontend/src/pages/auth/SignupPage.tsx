@@ -7,6 +7,7 @@ import { useAuthStore } from "../../features/auth/store/authStore"
 import { useForm } from "react-hook-form"
 import type { SignupPayload } from "../../features/auth/authTypes"
 import { ClipLoader } from "react-spinners"
+import toast, { Toaster } from "react-hot-toast"
 
 const SignupPage = () => {
   const [ isLoading, setIsLoading ] = useState(false);
@@ -22,8 +23,44 @@ const SignupPage = () => {
     setIsLoading(true)
     try {
       const successfullSignup = await signup(data)
-      if(successfullSignup){ 
+      if(successfullSignup){
+        toast.success('Signup successfull', {
+          duration: 3000,
+          position: 'top-right',
+
+          // Styling
+          style: {},
+          className: 'w-50',
+
+          // Aria
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+
+          // Additional Configuration
+          removeDelay: 1000,
+        })
+
         navigate("/")
+      } else{
+        toast.error('Signup failed', {
+          duration: 3000,
+          position: 'top-right',
+
+          // Styling
+          style: {},
+          className: 'w-40',
+
+          // Aria
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+
+          // Additional Configuration
+          removeDelay: 1000,
+        })
       }
     } catch (error) {
       console.error(error)
@@ -167,6 +204,8 @@ const SignupPage = () => {
           Privacy Policy
         </Link>.
       </p>
+
+      <Toaster />
     </AuthLayout>
   )
 }
