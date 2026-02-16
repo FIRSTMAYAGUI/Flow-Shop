@@ -19,6 +19,7 @@ Route::controller(AuthController::class)->group(function (){
     Route::post('/logout', 'logout')->middleware('auth:sanctum');
 });
 
+Route::get('/user', [UserController::class, 'getUser'])->middleware('auth:sanctum');
 Route::middleware('auth:sanctum')->prefix('users')->controller(UserController::class)->group(function (){
     Route::put('/{userId}', 'update');
     Route::post('/{userId}', 'changePassword')->whereNumber('userId');

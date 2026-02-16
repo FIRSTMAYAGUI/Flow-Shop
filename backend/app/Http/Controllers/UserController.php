@@ -14,11 +14,20 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function update(Request $request, string $userId){
+    public function getUser(Request $request)
+    {
+        return response()->json([
+            'status' => 'success',
+            'data' => $request->user(),
+        ], 200);
+    }
+
+    public function update(Request $request, string $userId)
+    {
 
         $user = User::where('id', $userId)->first();
 
-        if(!$user){
+        if (!$user) {
             return response()->json([
                 'message' => 'user doesn\'t exist',
                 'status' => 'failed',
@@ -30,7 +39,7 @@ class UserController extends Controller
             'email' => 'sometimes|email|unique:users,email',
         ]);
 
-        if($validateUserInfo->fails()){
+        if ($validateUserInfo->fails()) {
             return response()->json([
                 'message' => 'failed to update info',
                 'status' => 'failed',
@@ -52,11 +61,12 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function changePassword(Request $request, string $userId){
+    public function changePassword(Request $request, string $userId)
+    {
 
         $user = User::where('id', $userId)->first();
 
-        if(!$user){
+        if (!$user) {
             return response()->json([
                 'message' => 'user doesn\'t exist',
                 'status' => 'failed',
@@ -68,7 +78,7 @@ class UserController extends Controller
             'new_password' => 'required|string|min:8|max:255|confirmed',
         ]);
 
-        if($validateUserPwd->fails()){
+        if ($validateUserPwd->fails()) {
             return response()->json([
                 'message' => 'Failed to change password',
                 'status' => 'failed',
@@ -76,7 +86,7 @@ class UserController extends Controller
             ], 422);
         }
 
-        if(!Hash::check($request->current_password, $user->password)){
+        if (!Hash::check($request->current_password, $user->password)) {
             return response()->json([
                 'message' => 'The current password is incorrect',
                 'status' => 'failed',
@@ -93,10 +103,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function deleteUser(Request $request, string $userId){
+    public function deleteUser(Request $request, string $userId)
+    {
         $user = User::where('id', $userId)->first();
 
-        if(!$user){
+        if (!$user) {
             return response()->json([
                 'message' => 'User doesn\'t exist',
                 'status' => 'failed',
@@ -107,7 +118,7 @@ class UserController extends Controller
             'password' => 'required|string|min:8|max:255',
         ]);
 
-        if($validateUserPwd->fails()){
+        if ($validateUserPwd->fails()) {
             return response()->json([
                 'message' => 'Failed to delete user',
                 'status' => 'failed',
@@ -115,7 +126,7 @@ class UserController extends Controller
             ], 422);
         }
 
-        if(!Hash::check($request->password, $user->password)){
+        if (!Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => 'Password is incorrect',
                 'status' => 'failed',
@@ -130,7 +141,7 @@ class UserController extends Controller
 
             $userOrders = Orders::where('user_id', $user->id)->get();
 
-            if($userOrders->isNotEmpty()){
+            if ($userOrders->isNotEmpty()) {
 
                 //delete all orders made by the user
                 OrderItem::whereIn('order_id', $userOrders->pluck('id'))->delete();
