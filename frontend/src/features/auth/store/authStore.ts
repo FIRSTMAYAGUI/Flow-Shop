@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { login, logout, signup } from "../services/authService";
+import { login, logout, signup, userData } from "../services/authService";
 import type { LoginPayload, SignupPayload } from "../authTypes";
 import axios from "axios";
 
@@ -18,9 +18,10 @@ type AuthState = {
   login: (data: LoginPayload) => Promise<boolean>;
   signup: (data: SignupPayload) => Promise<boolean>;
   logout: () => Promise<boolean>;
+  checkAuth: () => void;
 };
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   error: null,
 
@@ -94,6 +95,22 @@ export const useAuthStore = create<AuthState>((set) => ({
         set({ error: "Something went wrong" });
       }   
       return false;
+    }
+  },
+
+  checkAuth: async () => {
+    const token = localStorage.getItem("token");
+    // Get the current state to check if user already exists
+    const { user } = get();
+
+    if (!token || user) return;
+
+    try {
+      const res = await userData();
+      set({ user: res.data });
+    } catch {
+      localStorage.removeItem("token");
+      set({ user: null });
     }
   },
 }))

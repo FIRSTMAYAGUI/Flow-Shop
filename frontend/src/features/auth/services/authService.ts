@@ -18,3 +18,8 @@ export const logout = async () => {
     //console.log(res);
     return res.data;
 }
+
+export const userData = async () => {
+    const res = await api.get("/user");
+    return res.data;
+}

@@ -13,8 +13,15 @@ import LoginPage from './pages/auth/LoginPage'
 import CheckoutPage from './pages/CheckoutPage'
 import NotFoundPage from './pages/404Page'
 import { Toaster } from 'react-hot-toast'
+import { useAuthStore } from './features/auth/store/authStore'
+import { useEffect } from 'react'
 
 function App() {
+  const { checkAuth } = useAuthStore();
+  
+  useEffect(()=>{
+    checkAuth();
+  }, [checkAuth])
 
   return (
     <>

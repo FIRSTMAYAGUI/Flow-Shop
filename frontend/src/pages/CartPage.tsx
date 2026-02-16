@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 /* import Technology from "../assets/technology.jpg" */
 
 const CartPage = () => {
+
   return (
     <>
       <PageTitle>My Cart</PageTitle>
