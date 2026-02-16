@@ -12,11 +12,13 @@ import SignupPage from './pages/auth/SignupPage'
 import LoginPage from './pages/auth/LoginPage'
 import CheckoutPage from './pages/CheckoutPage'
 import NotFoundPage from './pages/404Page'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
   return (
     <>
+      <Toaster />
       <BrowserRouter>
         <Routes>
           <Route element={<HomeLayout/>}>

@@ -7,6 +7,8 @@ type User = {
   id: number;
   fullname: string;
   email: string;
+  created_at: string
+  updated_at: string
 };
 
 type AuthState = {

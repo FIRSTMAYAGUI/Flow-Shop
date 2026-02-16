@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import Button from "../Button"
 import Logo from "../Logo"
 
-const Navbar = ({color, borderColor}:{color?: string, borderColor?: string}) => {
+const Navbar = ({ color }:{color?: string, borderColor?: string}) => {
   return (
     <div className="navbar">
         
@@ -27,20 +27,17 @@ const Navbar = ({color, borderColor}:{color?: string, borderColor?: string}) => 
                 <Link to="/favorites">
                     <Heart className="icon"/>
                 </Link>
-                <Link to='/' className="icon">
-                    <User />
-                </Link>
                 <Link to='/cart' className="icon relative p-3">
                     <span className="absolute right-1 top-1 text-sm text-white bg-red-500 w-5 h-5 text-center rounded-full">3</span>
                     <ShoppingCart/>
                 </Link>
+                <Link to='/' className="icon">
+                    <User />
+                </Link>
             </div>
 
             {/* Login and menu */}
-            <div className={`flex sm:w-48 md:w-fit sm:justify-between gap-6 ${color}`}>   
-                <Button className={`hover:border-hover hover:text-hover px-6 py-2 rounded-md ${borderColor}`}>
-                    <Link to='/login'>Login</Link>
-                </Button>
+            <div className={`flex sm:w-48 md:w-fit sm:justify-between gap-6 ${color}`}>
                 <Button className="lg:hidden border-none p-2">
                     <Menu size={45} className="icon"/>
                 </Button>

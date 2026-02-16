@@ -7,7 +7,7 @@ import Button from '../../components/Button'
 import { useAuthStore } from '../../features/auth/store/authStore'
 import { useState } from 'react'
 import { ClipLoader } from 'react-spinners'
-import toast, { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 
 const LoginPage = () => {
   const [ isLoading, setIsLoading ] = useState(false);
@@ -21,7 +21,7 @@ const LoginPage = () => {
       const successfullLogin = await login(data)
       if(successfullLogin){
         toast.success('Login Successfull', {
-          duration: 3000,
+          duration: 4000,
           position: 'top-right',
 
           // Styling
@@ -157,8 +157,6 @@ const LoginPage = () => {
         >
           Forgot password?
         </Link>
-
-        <Toaster />
       </div>
 
     </AuthLayout>
