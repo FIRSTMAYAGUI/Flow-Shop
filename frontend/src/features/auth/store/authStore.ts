@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { login, signup } from "../services/authService";
+import { login, logout, signup } from "../services/authService";
 import type { LoginPayload, SignupPayload } from "../authTypes";
 import axios from "axios";
 
@@ -17,6 +17,7 @@ type AuthState = {
   setUser: (user: User | null) => void;
   login: (data: LoginPayload) => Promise<boolean>;
   signup: (data: SignupPayload) => Promise<boolean>;
+  logout: () => Promise<boolean>;
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -74,6 +75,24 @@ export const useAuthStore = create<AuthState>((set) => ({
         set({ error: "Something went wrong" });
       }
       
+      return false;
+    }
+  },
+
+  logout: async () => {
+    try {
+      await logout();
+      localStorage.removeItem("token");
+      set({ user: null });
+      return true;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        set({
+          error: err.response?.data?.errors.email || "logout failed",
+        });
+      } else {
+        set({ error: "Something went wrong" });
+      }   
       return false;
     }
   }

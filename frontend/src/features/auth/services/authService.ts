@@ -12,3 +12,9 @@ export const signup = async (data: SignupPayload) => {
     //console.log(res);
     return res.data;
 }
+
+export const logout = async () => {
+    const res = await api.post('/logout');
+    //console.log(res);
+    return res.data;
+}
