@@ -7,7 +7,7 @@ import { useAuthStore } from "../../features/auth/store/authStore"
 import { useForm } from "react-hook-form"
 import type { SignupPayload } from "../../features/auth/authTypes"
 import { ClipLoader } from "react-spinners"
-import toast, { Toaster } from "react-hot-toast"
+import toast from "react-hot-toast"
 
 const SignupPage = () => {
   const [ isLoading, setIsLoading ] = useState(false);
@@ -204,8 +204,6 @@ const SignupPage = () => {
           Privacy Policy
         </Link>.
       </p>
-
-      <Toaster />
     </AuthLayout>
   )
 }
