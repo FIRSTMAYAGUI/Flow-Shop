@@ -129,9 +129,9 @@ const  Home = () => {
           </p>
 
           <div className="mt-8">
-            <Button className="bg-white text-primary-color font-bold px-8 py-4 rounded-xl hover:bg-gray-100">
-              <Link to="/product">Browse Products</Link>
-            </Button>
+            <Link to="/product">
+              <Button className="bg-white text-primary-color font-bold px-8 py-4 rounded-xl hover:bg-gray-100">Browse Products</Button>
+            </Link>
           </div>
         </div>
       </Container>

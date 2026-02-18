@@ -9,6 +9,7 @@ import  WomanWithGlasses  from "../assets/images/woman-infront-building.jpg"
 import GameController from "../assets/images/gaming-controllers.jpg"
 import Technology from "../assets/images/technology.jpg"
 import SectionTitle from "../components/SectionTitle"
+import { Link } from "react-router-dom"
 
 const ProductDetail = () => {
   return (
@@ -91,15 +92,17 @@ const ProductDetail = () => {
 
             {/* Actions */}
           <div className="flex gap-4 mt-4">
-              <Button className="flex-1 bg-primary-color text-xl text-white py-4 rounded-xl font-semibold hover:bg-secondary-color">
+            <Link to='/checkout' className="flex-1">
+              <Button className="w-full bg-primary-color text-xl text-white py-4 rounded-xl font-semibold hover:bg-secondary-color">
                 Buy Product
               </Button>
-              <button className="cursor-pointer p-4 border border-neutral-200 rounded-xl hover:bg-neutral-100 transition">
-                <ShoppingCart />
-              </button>
-              <button className="cursor-pointer p-4 border border-neutral-200 rounded-xl hover:bg-neutral-100 transition">
-                <Heart />
-              </button>
+            </Link>
+            <button className="cursor-pointer p-4 border border-neutral-200 rounded-xl hover:bg-neutral-100 transition">
+              <ShoppingCart />
+            </button>
+            <button className="cursor-pointer p-4 border border-neutral-200 rounded-xl hover:bg-neutral-100 transition">
+              <Heart />
+            </button>
           </div>
           </div>
 
