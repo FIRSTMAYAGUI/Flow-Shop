@@ -10,11 +10,8 @@ import Basketball from "../assets/images/basketball.jpg"
 import GirlWithHeadset from "../assets/images/girl-with-headset.jpg"
 import { Link } from "react-router-dom"
 import CategoryCard from "../components/CategoryCard"
-import { useAuthStore } from "../features/auth/store/authStore"
 
 const  Home = () => {
-  const { user } = useAuthStore();
-
   return (
     <>
     {/* Product Section */}
@@ -85,7 +82,7 @@ const  Home = () => {
 
           <div className="flex justify-center items-center">
             <Link to={'/product'}>
-              <Button className="border border-secondary-color text-secondary-color hover:border-primary-color hover:text-primary-color">{user?.fullname}</Button>
+              <Button className="border border-secondary-color text-secondary-color hover:border-primary-color hover:text-primary-color">See More</Button>
             </Link>
           </div>
         </div>

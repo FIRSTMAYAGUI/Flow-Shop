@@ -61,7 +61,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       console.log("response from auth service: ", res.data)
       console.log("token: ", res.token)
       localStorage.setItem("token", res.token);
-      console.log(localStorage.getItem("token"))
 
       set({ user: res.data });
 
@@ -104,13 +103,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const { user } = get();
 
     if (!token || user) return;
-
-    try {
-      const res = await userData();
-      set({ user: res.data });
-    } catch {
-      localStorage.removeItem("token");
-      set({ user: null });
-    }
+    
+    const res = await userData();
+    set({ user: res.data });
   },
 }))
