@@ -1,5 +1,5 @@
-import api from "../../../services/axios";
-import type { LoginPayload, SignupPayload } from "../authTypes";
+import api from "../../services/axios";
+import type { LoginPayload, SignupPayload } from "./authTypes";
 
 export const login = async (data: LoginPayload) => {
     const res = await api.post('/login', data);

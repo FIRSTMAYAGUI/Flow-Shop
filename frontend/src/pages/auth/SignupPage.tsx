@@ -3,7 +3,7 @@ import WomanSmilling from "../../assets/images/brunette-haired-woman-smiling.jpg
 import { Link, useNavigate } from "react-router-dom"
 import Button from "../../components/Button"
 import { useState } from "react"
-import { useAuthStore } from "../../features/auth/store/authStore"
+import { useAuthStore } from "../../features/auth/authStore"
 import { useForm } from "react-hook-form"
 import type { SignupPayload } from "../../features/auth/authTypes"
 import { ClipLoader } from "react-spinners"

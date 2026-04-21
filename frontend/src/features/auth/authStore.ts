@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { login, logout, signup, userData } from "../services/authService";
-import type { LoginPayload, SignupPayload } from "../authTypes";
+import { login, logout, signup, userData } from "./authService";
+import type { LoginPayload, SignupPayload } from "./authTypes";
 import axios from "axios";
 
 type User = {

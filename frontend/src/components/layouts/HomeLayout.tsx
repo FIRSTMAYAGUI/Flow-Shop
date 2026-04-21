@@ -4,7 +4,7 @@ import GuestNavbar from './GuestNavbar'
 import Hero from '../Hero'
 import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
-import { useAuthStore } from '../../features/auth/store/authStore'
+import { useAuthStore } from '../../features/auth/authStore'
 
 const HomeLayout = () => {
   const { user } = useAuthStore();

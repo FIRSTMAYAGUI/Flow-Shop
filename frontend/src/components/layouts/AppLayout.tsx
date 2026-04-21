@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
 import Footer from "./Footer"
 import GuestNavbar from "./GuestNavbar"
-import { useAuthStore } from "../../features/auth/store/authStore";
+import { useAuthStore } from "../../features/auth/authStore";
 import Navbar from "./Navbar"
 
 const AppLayout = () => {
