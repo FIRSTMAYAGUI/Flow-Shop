@@ -76,8 +76,7 @@ const SignupPage = () => {
       message="Create your account"
       MsgOption="Signup"
       button={
-        <Button className="w-full bg-primary-color text-white py-3 rounded-xl font-semibold hover:bg-primary-color/90 transition flex justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed" 
-        onClick={onSubmit}
+        <Button className="w-full bg-primary-color text-white py-3 rounded-xl font-semibold hover:bg-primary-color/90 transition flex justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
         disabled={isLoading}
         >
           {
@@ -85,7 +84,7 @@ const SignupPage = () => {
             (
               <>
                 <ClipLoader size={20} color="#ffffff" />
-                <span>Signing in...</span>
+                <span>Signing up...</span>
               </>
             ) : 'Sign Up'
           }
@@ -96,6 +95,7 @@ const SignupPage = () => {
           Already have an account? <Link to='/login' className="text-primary-color font-medium cursor-pointer">Login</Link>
         </div>
       }
+      onSubmit={onSubmit}
     >
 
       {/* Signup with email */}

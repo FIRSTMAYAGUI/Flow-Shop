@@ -11,6 +11,7 @@ const AuthLayout = ({
   button,
   ifAccountOrNot,
   children,
+  onSubmit,
 }: {
   source: string
   alt: string
@@ -19,6 +20,7 @@ const AuthLayout = ({
   button: React.ReactNode
   ifAccountOrNot: React.ReactNode
   children: React.ReactNode
+  onSubmit?: () => void;
 }) => {
   return (
     <div className="min-h-screen flex">
@@ -54,7 +56,7 @@ const AuthLayout = ({
             </p>
           </div>
 
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={onSubmit}>
 
             {/* OAuth (Google, etc.) */}
             <div className="mb-6">
