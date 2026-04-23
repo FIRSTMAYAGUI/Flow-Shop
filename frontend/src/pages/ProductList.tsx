@@ -2,14 +2,9 @@ import Container from "../components/Container"
 import ProductCard from "../components/ProductCard"
 import SearchInput from "../components/SearchInput"
 import SortInput from "../components/SortInput"
-import  WomanShop  from "../assets/images/woman-shop.jpg"
-import  WomanWithGlasses  from "../assets/images/woman-infront-building.jpg"
-import GameController from "../assets/images/gaming-controllers.jpg"
-import Technology from "../assets/images/technology.jpg"
-import Basketball from "../assets/images/basketball.jpg"
-import GirlWithHeadset from "../assets/images/girl-with-headset.jpg"
 import PageTitle from "../components/PageTitle"
 import Button from "../components/Button"
+import { products } from "../productData"
 
 const ProductList = () => {
   return (
@@ -33,81 +28,16 @@ const ProductList = () => {
 
         </div>
         <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center ">
-          <ProductCard 
-            imageUrl={Technology}
-            alt={""} 
-            productName={"Latest Latops"}
-            categoryName={"Electronics"}
-            price={44.9}
-          />
-
-          <ProductCard 
-            imageUrl={WomanWithGlasses}
-            alt={""} 
-            productName={"Sun glasses"}
-            categoryName={"Fashion"}
-            price={49.5}
-          />
-
-          <ProductCard 
-            imageUrl={WomanShop}
-            alt={""} 
-            productName={"Nice Jackets"}
-            categoryName={"Out fits"}
-            price={119.0}
-          />
-
-          <ProductCard 
-            imageUrl={GirlWithHeadset}
-            alt={""} 
-            productName={"High quality Headsets"}
-            categoryName={"Fashion"}
-            price={59.9}
-          />
-          <ProductCard 
-            imageUrl={GameController}
-            alt={""} 
-            productName={"Newest Gaming Controller"}
-            categoryName={"Gaming"}
-            price={35}
-          />
-          <ProductCard 
-            imageUrl={GirlWithHeadset}
-            alt={""} 
-            productName={"High quality Headsets"}
-            categoryName={"Fashion"}
-            price={59.9}
-          />
-          <ProductCard 
-            imageUrl={Basketball}
-            alt={""} 
-            productName={"Baskeball outfits"}
-            categoryName={"Sports"}
-            price={20}
-          />
-          <ProductCard 
-            imageUrl={GirlWithHeadset}
-            alt={""} 
-            productName={"High quality Headsets"}
-            categoryName={"Fashion"}
-            price={59.9}
-          />
-
-          <ProductCard 
-            imageUrl={Basketball}
-            alt={""} 
-            productName={"Baskeball outfits"}
-            categoryName={"Sports"}
-            price={20}
-          />
-
-          <ProductCard 
-            imageUrl={WomanWithGlasses}
-            alt={""} 
-            productName={"Sun glasses"}
-            categoryName={"Fashion"}
-            price={49.5}
-          />          
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              imageUrl={product.imageUrl}
+              alt={product.alt}
+              productName={product.productName}
+              categoryName={product.categoryName}
+              price={product.price}
+            />
+          ))}       
         </div>
         {/* pagination UI */}
         <div className="mt-12 flex justify-center items-center gap-3">
