@@ -90,6 +90,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         set({
           error: err.response?.data?.errors.email || "logout failed",
         });
+
+        console.error(err.response?.data?.errors.email || "logout failed")
       } else {
         set({ error: "Something went wrong" });
       }   

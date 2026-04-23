@@ -1,9 +1,63 @@
 import { Heart, Menu, ShoppingCart, User } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Button from "../Button"
 import Logo from "../Logo"
+import { useAuthStore } from "../../features/auth/authStore"
+import toast from "react-hot-toast"
 
-const Navbar = ({ color }:{color?: string, borderColor?: string}) => {
+const Navbar = ({ color, borderColor }:{color?: string, borderColor?: string}) => {
+
+    const { error, logout } = useAuthStore();
+
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+        const successfullLogout = await logout()
+        if(successfullLogout){
+            toast.success('Successfully Loggedout', {
+            duration: 3000,
+            position: 'top-right',
+
+            // Styling
+            style: {},
+            className: 'w-50',
+
+            // Aria
+            ariaProps: {
+                role: 'status',
+                'aria-live': 'polite',
+            },
+
+            // Additional Configuration
+            removeDelay: 1000,
+            })
+
+            navigate("/")
+        } else{
+            toast.error(error || 'Logout Failed', {
+            duration: 3000,
+            position: 'top-right',
+
+            // Styling
+            style: {},
+            className: 'w-40',
+
+            // Aria
+            ariaProps: {
+                role: 'status',
+                'aria-live': 'polite',
+            },
+
+            // Additional Configuration
+            removeDelay: 1000,
+            })
+        }
+        } catch (error) {
+        console.error(error)
+        }
+    }
+
   return (
     <div className="navbar">
         
@@ -36,7 +90,12 @@ const Navbar = ({ color }:{color?: string, borderColor?: string}) => {
                 </Link>
             </div>
 
-            {/* Login and menu */}
+            {/* Logout button*/}
+            <Button 
+            onClick={handleLogout}
+            className={`hover:border-hover hover:text-hover px-6 py-2 rounded-md ${color} ${borderColor}`}>Logout</Button>
+
+            {/* menu */}
             <div className={`flex sm:w-48 md:w-fit sm:justify-between gap-6 ${color}`}>
                 <Button className="lg:hidden border-none p-2">
                     <Menu size={45} className="icon"/>
