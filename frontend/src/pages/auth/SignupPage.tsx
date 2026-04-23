@@ -2,7 +2,6 @@ import AuthLayout from "../../components/layouts/AuthLayout"
 import WomanSmilling from "../../assets/images/brunette-haired-woman-smiling.jpg"
 import { Link, useNavigate } from "react-router-dom"
 import Button from "../../components/Button"
-import { useState } from "react"
 import { useAuthStore } from "../../features/auth/authStore"
 import { useForm } from "react-hook-form"
 import type { SignupPayload } from "../../features/auth/authTypes"
@@ -10,17 +9,14 @@ import { ClipLoader } from "react-spinners"
 import toast from "react-hot-toast"
 
 const SignupPage = () => {
-  const [ isLoading, setIsLoading ] = useState(false);
   const { register, handleSubmit, watch, formState: { errors }} = useForm<SignupPayload>();
-  const { error, signup } = useAuthStore();
+  const { error, loading, signup } = useAuthStore();
   const navigate = useNavigate();
 
   const password = watch("password");
 
-  //console.log("user data: ", user)
-
   const onSubmit = handleSubmit(async (data) => {
-    setIsLoading(true)
+
     try {
       const successfullSignup = await signup(data)
       if(successfullSignup){
@@ -64,8 +60,6 @@ const SignupPage = () => {
       }
     } catch (error) {
       console.error(error)
-    } finally {
-      setIsLoading(false)
     }
   })
 
@@ -77,10 +71,10 @@ const SignupPage = () => {
       MsgOption="Signup"
       button={
         <Button className="w-full bg-primary-color text-white py-3 rounded-xl font-semibold hover:bg-primary-color/90 transition flex justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
-        disabled={isLoading}
+        disabled={loading}
         >
           {
-            isLoading ? 
+            loading ? 
             (
               <>
                 <ClipLoader size={20} color="#ffffff" />

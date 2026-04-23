@@ -19,18 +19,19 @@ type AuthState = {
   signup: (data: SignupPayload) => Promise<boolean>;
   logout: () => Promise<boolean>;
   checkAuth: () => void;
+  loading: boolean;
 };
 
 export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   error: null,
-
+  loading: false,
   setUser: (user)=>set({user}),
 
   login: async (data) => {
     try {
       set({ error: null });
-
+      
       const res = await login(data);
       console.log("response from auth service: ", res.data)
       console.log("token: ", res.token)
@@ -50,13 +51,17 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       }
       
       return false;
+
+    } finally{
+      set({loading: false});
     }
   },
 
   signup: async (data) => {
     try {
       set({ error: null });
-
+      set({loading: true});
+      
       const res = await signup(data);
       console.log("response from auth service: ", res.data)
       console.log("token: ", res.token)
@@ -76,6 +81,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       }
       
       return false;
+
+    } finally{
+      set({loading: false});
     }
   },
 
