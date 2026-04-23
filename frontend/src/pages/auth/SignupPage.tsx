@@ -138,6 +138,7 @@ const SignupPage = () => {
         </div>
 
         {/* Password */}
+        
         <div>
           <input
             type="password"

@@ -13,7 +13,7 @@ type User = {
 
 type AuthState = {
   user: User | null;
-  error: string | null
+  error: string | null | any;
   setUser: (user: User | null) => void;
   login: (data: LoginPayload) => Promise<boolean>;
   signup: (data: SignupPayload) => Promise<boolean>;
@@ -28,40 +28,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   loading: false,
   setUser: (user)=>set({user}),
 
-  login: async (data) => {
-    try {
-      set({ error: null });
-      
-      const res = await login(data);
-      console.log("response from auth service: ", res.data)
-      console.log("token: ", res.token)
-      localStorage.setItem("token", res.token);
-      console.log(localStorage.getItem("token"))
-
-      set({ user: res.data });
-      return true
-
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        set({
-          error: err.response?.data?.message || "Login failed",
-        });
-      } else {
-        set({ error: "Something went wrong" });
-      }
-      
-      return false;
-
-    } finally{
-      set({loading: false});
-    }
-  },
-
   signup: async (data) => {
     try {
-      set({ error: null });
-      set({loading: true});
-      
+      set({ error: null });//setting the error to null in case there waas a previous error
+      set({loading: true});//setting loading to true
+
       const res = await signup(data);
       console.log("response from auth service: ", res.data)
       console.log("token: ", res.token)
@@ -73,9 +44,47 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
-        set({
-          error: err.response?.data?.errors.email || "Signup failed",
-        });
+        console.log(Object.values(err.response?.data?.message));
+
+        const message = Object.values(err.response?.data?.message)[0] ||
+        "Signup failed";
+        //the Object.values extract the vaues of aan object and places them into an array, that means it returns an array of values
+
+        set({ error: message })
+      } else {
+        set({ error: "Something went wrong" });
+      }
+      
+      return false;
+
+    } finally{
+      set({loading: false});
+    }
+  },
+
+  login: async (data) => {
+    try {
+      set({ error: null });
+      set({loading: true});
+
+      const res = await login(data);
+      console.log("response from auth service: ", res.data)
+      console.log("token: ", res.token)
+      localStorage.setItem("token", res.token);
+      console.log(localStorage.getItem("token"))
+
+      set({ user: res.data });
+      return true
+
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+
+        const message =
+        err.response?.data?.message ||
+        Object.values(err.response?.data?.message || {})[0] ||
+        "Login failed";
+
+        set({ error: message });
       } else {
         set({ error: "Something went wrong" });
       }
@@ -95,11 +104,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       return true;
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        set({
-          error: err.response?.data?.errors.email || "logout failed",
-        });
+        const message =
+        err.response?.data?.message ||
+        Object.values(err.response?.data?.message || {})[0] ||
+        "Logout failed";
 
-        console.error(err.response?.data?.errors.email || "logout failed")
+        set({ error: message })
+
+        console.error(message || "Logout failed")
       } else {
         set({ error: "Something went wrong" });
       }   

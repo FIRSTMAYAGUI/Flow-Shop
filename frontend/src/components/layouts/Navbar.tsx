@@ -7,7 +7,7 @@ import toast from "react-hot-toast"
 
 const Navbar = ({ color, borderColor }:{color?: string, borderColor?: string}) => {
 
-    const { error, logout } = useAuthStore();
+    const { logout } = useAuthStore();
 
     const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const Navbar = ({ color, borderColor }:{color?: string, borderColor?: string}) =
 
             navigate("/")
         } else{
-            toast.error(error || 'Logout Failed', {
+            toast.error('Logout Failed', {
             duration: 3000,
             position: 'top-right',
 

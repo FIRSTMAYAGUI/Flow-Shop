@@ -23,9 +23,8 @@ class AuthController extends Controller
 
         if($validateUser->fails()){
             return response()->json([
-                'message' => 'failed to create user',
+                'message' => $validateUser->errors(),
                 'status' => 'failed',
-                'errors' => $validateUser->errors(),
             ], 422);
         }
 
@@ -56,9 +55,8 @@ class AuthController extends Controller
 
         if($validateUser->fails()){
             return response()->json([
-                'message' => 'failed to login user',
+                'message' => $validateUser->errors(),
                 'status' => 'failed',
-                'errors' => $validateUser->errors(),
             ], 422);
         }
 

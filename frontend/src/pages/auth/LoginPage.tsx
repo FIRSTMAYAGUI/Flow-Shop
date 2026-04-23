@@ -5,18 +5,15 @@ import { useForm } from 'react-hook-form'
 import type { LoginPayload } from '../../features/auth/authTypes'
 import Button from '../../components/Button'
 import { useAuthStore } from '../../features/auth/authStore'
-import { useState } from 'react'
 import { ClipLoader } from 'react-spinners'
 import toast from 'react-hot-toast'
 
 const LoginPage = () => {
-  const [ isLoading, setIsLoading ] = useState(false);
   const { register, handleSubmit, formState: { errors }} = useForm<LoginPayload>();
-  const { error, login } = useAuthStore();
+  const { error, loading, login } = useAuthStore();
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (data) => {
-    setIsLoading(true)
     try {
       const successfullLogin = await login(data)
       if(successfullLogin){
@@ -58,11 +55,10 @@ const LoginPage = () => {
           removeDelay: 1000,
         })
       }
-    } catch (error) {
+    } catch (err) {
+      console.error(err)
       console.error(error)
-    } finally {
-      setIsLoading(false)
-    }
+    } 
   })
 
   return (
@@ -75,10 +71,10 @@ const LoginPage = () => {
       button={
         <Button className="w-full bg-primary-color hover:bg-primary-color/90 text-white py-3 rounded-xl font-semibold transition flex justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed" 
         onClick={onSubmit}
-        disabled={isLoading}
+        disabled={loading}
         >
           {
-            isLoading ? 
+            loading ? 
             (
               <>
                 <ClipLoader size={20} color="#ffffff" />
