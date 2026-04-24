@@ -17,6 +17,7 @@ import { useAuthStore } from './features/auth/authStore'
 import { useEffect } from 'react'
 import { BounceLoader } from 'react-spinners'
 import ProtectedRoutes from './components/layouts/ProtectedRoutes'
+import GuestRoutes from './components/layouts/GuestRoutes'
 
 function App() {
   const { checkAuth, isCheckingAuth } = useAuthStore();
@@ -37,11 +38,13 @@ function App() {
           <Toaster />
           <BrowserRouter>
             <Routes>
+
               <Route element={<HomeLayout/>}>
                 <Route path='/' element={<Home />}/>
               </Route>
+
               <Route element={<AppLayout/>}>
-              
+
                 <Route path='/products' element={<ProductList />}/>
                 <Route path='/product-detail' element={<ProductDetail/>} />
                 <Route path='/cart' element={<CartPage/>}/>
@@ -53,8 +56,12 @@ function App() {
                 </Route>
 
               </Route>
-              <Route path='/signup' element={<SignupPage/>}/>
-              <Route path='/login' element={<LoginPage/>}/>
+
+              <Route element={<GuestRoutes/>}>
+                <Route path='/signup' element={<SignupPage/>}/>
+                <Route path='/login' element={<LoginPage/>}/>
+              </Route>
+              
               <Route path='/404' element={<NotFoundPage/>}/>
               
             </Routes>
