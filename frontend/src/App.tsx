@@ -15,9 +15,10 @@ import NotFoundPage from './pages/404Page'
 import { Toaster } from 'react-hot-toast'
 import { useAuthStore } from './features/auth/authStore'
 import { useEffect } from 'react'
+import { BounceLoader } from 'react-spinners'
 
 function App() {
-  const { checkAuth } = useAuthStore();
+  const { checkAuth, isCheckingAuth } = useAuthStore();
   
   useEffect(()=>{
     checkAuth();
@@ -25,26 +26,37 @@ function App() {
 
   return (
     <>
-      <Toaster />
-      <BrowserRouter>
-        <Routes>
-          <Route element={<HomeLayout/>}>
-            <Route path='/' element={<Home />}/>
-          </Route>
-          <Route element={<AppLayout/>}>
-            <Route path='/product' element={<ProductList />}/>
-            <Route path='/product-detail' element={<ProductDetail/>} />
-            <Route path='/favorites' element={<Favorites/>}/>
-            <Route path='/cart' element={<CartPage/>}/>
-            <Route path='/orders' element={<OrdersPage/>}/>
-            <Route path='/checkout' element={<CheckoutPage/>}/>
-          </Route>
-          <Route path='/signup' element={<SignupPage/>}/>
-          <Route path='/login' element={<LoginPage/>}/>
-          <Route path='/404' element={<NotFoundPage/>}/>
-          
-        </Routes>
-      </BrowserRouter>
+    {
+      isCheckingAuth ? (
+      <div className='h-screen flex justify-center items-center'>
+        <BounceLoader size={80} color="#4f8cff"/>
+      </div>) :
+      (
+        <>
+          <Toaster />
+          <BrowserRouter>
+            <Routes>
+              <Route element={<HomeLayout/>}>
+                <Route path='/' element={<Home />}/>
+              </Route>
+              <Route element={<AppLayout/>}>
+                <Route path='/product' element={<ProductList />}/>
+                <Route path='/product-detail' element={<ProductDetail/>} />
+                <Route path='/favorites' element={<Favorites/>}/>
+                <Route path='/cart' element={<CartPage/>}/>
+                <Route path='/orders' element={<OrdersPage/>}/>
+                <Route path='/checkout' element={<CheckoutPage/>}/>
+              </Route>
+              <Route path='/signup' element={<SignupPage/>}/>
+              <Route path='/login' element={<LoginPage/>}/>
+              <Route path='/404' element={<NotFoundPage/>}/>
+              
+            </Routes>
+          </BrowserRouter>
+        </>
+      )
+    }
+      
     </>
   )
 }

@@ -19,13 +19,15 @@ type AuthState = {
   signup: (data: SignupPayload) => Promise<boolean>;
   logout: () => Promise<boolean>;
   checkAuth: () => void;
+  isCheckingAuth: boolean;
   loading: boolean;
 };
 
-export const useAuthStore = create<AuthState>((set, get) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   error: null,
   loading: false,
+  isCheckingAuth: true,
   setUser: (user)=>set({user}),
 
   signup: async (data) => {
@@ -121,12 +123,20 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   checkAuth: async () => {
     const token = localStorage.getItem("token");
-    // Get the current state to check if user already exists
-    const { user } = get();
 
-    if (!token || user) return;
-    
-    const res = await userData();
-    set({ user: res.data });
+    if (!token) {
+      set({ isCheckingAuth: false });
+      return;
+    }
+
+    try {
+      const res = await userData();
+      set({ user: res.data });
+    } catch {
+      localStorage.removeItem("token");
+      set({ user: null });
+    } finally {
+      set({ isCheckingAuth: false });
+    }
   },
 }))
