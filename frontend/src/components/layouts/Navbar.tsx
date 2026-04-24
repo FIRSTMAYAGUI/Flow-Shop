@@ -69,7 +69,7 @@ const Navbar = ({ color, borderColor }:{color?: string, borderColor?: string}) =
         {/* nav links */}
         <nav className={`nav-link ${color}`}>
             <Link to='/' >Home</Link>
-            <Link to='/product'>Products</Link>
+            <Link to='/products'>Products</Link>
             <Link to='/'>About</Link>
             <Link to='/'>Contact</Link>
         </nav>

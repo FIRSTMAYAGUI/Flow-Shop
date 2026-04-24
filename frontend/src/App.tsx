@@ -16,6 +16,7 @@ import { Toaster } from 'react-hot-toast'
 import { useAuthStore } from './features/auth/authStore'
 import { useEffect } from 'react'
 import { BounceLoader } from 'react-spinners'
+import ProtectedRoutes from './components/layouts/ProtectedRoutes'
 
 function App() {
   const { checkAuth, isCheckingAuth } = useAuthStore();
@@ -40,12 +41,17 @@ function App() {
                 <Route path='/' element={<Home />}/>
               </Route>
               <Route element={<AppLayout/>}>
-                <Route path='/product' element={<ProductList />}/>
+              
+                <Route path='/products' element={<ProductList />}/>
                 <Route path='/product-detail' element={<ProductDetail/>} />
-                <Route path='/favorites' element={<Favorites/>}/>
                 <Route path='/cart' element={<CartPage/>}/>
-                <Route path='/orders' element={<OrdersPage/>}/>
-                <Route path='/checkout' element={<CheckoutPage/>}/>
+                
+                <Route element={<ProtectedRoutes/>}>
+                  <Route path='/favorites' element={<Favorites/>}/>
+                  <Route path='/orders' element={<OrdersPage/>}/>
+                  <Route path='/checkout' element={<CheckoutPage/>}/>
+                </Route>
+
               </Route>
               <Route path='/signup' element={<SignupPage/>}/>
               <Route path='/login' element={<LoginPage/>}/>

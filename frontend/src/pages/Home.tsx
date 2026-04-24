@@ -81,7 +81,7 @@ const  Home = () => {
           </div>
 
           <div className="flex justify-center items-center">
-            <Link to={'/product'}>
+            <Link to={'/products'}>
               <Button className="border border-secondary-color text-secondary-color hover:border-primary-color hover:text-primary-color">See More</Button>
             </Link>
           </div>
