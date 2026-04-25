@@ -23,8 +23,9 @@ class AuthController extends Controller
 
         if($validateUser->fails()){
             return response()->json([
-                'message' => $validateUser->errors(),
+                'message' => 'Signup failed, check if all inputs are correct',
                 'status' => 'failed',
+                'errors' => $validateUser->errors(),
             ], 422);
         }
 
@@ -40,9 +41,9 @@ class AuthController extends Controller
         //Mail::to($user)->send(new WelcomeMail($user));
 
         return response()->json([
-            'message' => 'user created successfully a message was sent to your email',
+            'message' => 'User created successfully, a message was sent to your email',
             'status' => 'success',
-            'data' => $user,
+            'user' => $user,
             'token' => $token,
         ]);
     }
@@ -55,28 +56,28 @@ class AuthController extends Controller
 
         if($validateUser->fails()){
             return response()->json([
-                'message' => $validateUser->errors(),
+                'message' => 'login failed check your crendentials',
                 'status' => 'failed',
+                'errors' => $validateUser->errors(),
             ], 422);
         }
 
-        $user = User::where('email', $request->email)->first();
-
-        if(!$user || !Hash::check($request->password, $user->password)){
+        if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
-                'message' => 'Incorrect credentials',
-                'status' => 'failed',
+                'message' => 'Incorrect credentials'
             ], 401);
         }
 
-        $token = $user->createToken('userToken')->plainTextToken;
+        $user = Auth::user();
+
+        $token = $user->createToken('userToken')->plainTextToken; //This works just ignore the error message check how to fix it later
 
         //Mail::to($user)->send(new LoginSuccessMail($user));
 
         return response()->json([
             'message' => 'User login successfully',
             'status' => 'success',
-            'data' => $user,
+            'user' => $user,
             'token' => $token,
         ], 200); 
     }
