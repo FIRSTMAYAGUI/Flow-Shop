@@ -13,7 +13,7 @@ type User = {
 
 type AuthState = {
   user: User | null;
-  error: string | null | any;
+  error: string | null;
   setUser: (user: User | null) => void;
   login: (data: LoginPayload) => Promise<boolean>;
   signup: (data: SignupPayload) => Promise<boolean>;
@@ -46,13 +46,21 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
-        console.log(Object.values(err.response?.data?.errors));
+        const errors = err.response?.data?.errors;
 
-        const message = Object.values(err.response?.data?.errors)[0] ||
-        "Signup failed";
-        //the Object.values extract the vaues of aan object and places them into an array, that means it returns an array of values
+        let message = "Something went wrong";
 
-        set({ error: message })
+        if (errors && typeof errors === "object") {
+          const firstError = Object.values(errors)[0]; 
+
+          if (Array.isArray(firstError)) {
+            message = firstError[0]; 
+          } else if (typeof firstError === "string") {
+            message = firstError;
+          }
+        }
+
+        set({ error: message });
       } else {
         set({ error: "Something went wrong" });
       }
@@ -80,11 +88,19 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
+        const errors = err.response?.data?.errors;
 
-        const message =
-        err.response?.data?.message ||
-        Object.values(err.response?.data?.errors || {})[0] ||
-        "Login failed";
+        let message = "Something went wrong";
+
+        if (errors && typeof errors === "object") {
+          const firstError = Object.values(errors)[0]; 
+
+          if (Array.isArray(firstError)) {
+            message = firstError[0]; 
+          } else if (typeof firstError === "string") {
+            message = firstError;
+          }
+        }
 
         set({ error: message });
       } else {
