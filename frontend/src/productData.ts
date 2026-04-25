@@ -2,7 +2,7 @@
 
 import { images } from "./images";
 
-export const products = [
+export const fakeProducts = [
   {
     id: 1,
     imageUrl: images.technology,

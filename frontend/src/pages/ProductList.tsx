@@ -4,9 +4,21 @@ import SearchInput from "../components/SearchInput"
 import SortInput from "../components/SortInput"
 import PageTitle from "../components/PageTitle"
 import Button from "../components/Button"
-import { products } from "../productData"
+import { fakeProducts } from "../productData"
+import { useProductStore } from "../features/products/productStore"
+import { useEffect } from "react"
 
 const ProductList = () => {
+
+  const { error, products, getProducts } = useProductStore();
+
+  useEffect(()=>{
+    getProducts();
+  }, [getProducts]) 
+  /* console.log('error is:', error);
+  console.log('fetched products:', products);
+  console.log(typeof products); */
+
   return (
     <>
       <PageTitle>OUR PRODUCTS</PageTitle>
@@ -28,7 +40,7 @@ const ProductList = () => {
 
         </div>
         <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center ">
-          {products.map((product) => (
+          {fakeProducts.map((product) => (
             <ProductCard
               key={product.id}
               imageUrl={product.imageUrl}
@@ -37,7 +49,20 @@ const ProductList = () => {
               categoryName={product.categoryName}
               price={product.price}
             />
-          ))}       
+          ))}  
+
+          {/* {products ? products.map((product) => (
+            <ProductCard
+              key={product.id}
+              imageUrl={product.imageUrl}
+              alt={product.alt}
+              productName={product.productName}
+              categoryName={product.categoryName}
+              price={product.price}
+            />
+          )) : 'nothing'}  */} 
+
+          
         </div>
         {/* pagination UI */}
         <div className="mt-12 flex justify-center items-center gap-3">
