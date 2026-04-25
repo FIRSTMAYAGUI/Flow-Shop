@@ -21,7 +21,7 @@ class ProductController extends Controller
             return response()->json([
                 'message' => 'No products found',
                 'status' => 'success',
-                'data' => $products
+                'products' => $products
             ], 200);
         }
 
@@ -86,7 +86,7 @@ class ProductController extends Controller
         return response()->json([
             'message' => 'Product created successfully',
             'status' => 'success',
-            'data' => $productData,
+            'products' => $productData,
         ], 201);
 
     }
@@ -109,7 +109,7 @@ class ProductController extends Controller
         return response()->json([
             'message' => 'Product fetched successfully',
             'status' => 'success',
-            'data' => $product
+            'product' => $product
         ], 200); 
     }
 
@@ -178,7 +178,7 @@ class ProductController extends Controller
         return response()->json([
             'message' => 'Product updated successfully',
             'status' => 'success',
-            'data' => $product
+            'product' => $product
         ], 200);
 
         /* try {
