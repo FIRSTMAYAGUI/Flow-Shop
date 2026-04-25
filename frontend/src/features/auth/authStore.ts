@@ -88,7 +88,11 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
-        const errors = err.response?.data?.errors;
+        let errors;
+
+        if(err.response?.data?.errors) errors = err.response?.data?.errors;
+        
+        if(err.response?.data?.message) errors = err.response?.data?.message;
 
         let message = "Something went wrong";
 
@@ -97,9 +101,11 @@ export const useAuthStore = create<AuthState>((set) => ({
 
           if (Array.isArray(firstError)) {
             message = firstError[0]; 
-          } else if (typeof firstError === "string") {
-            message = firstError;
-          }
+          } 
+        }
+
+        if (errors && typeof errors === "string" ){
+          message = errors;
         }
 
         set({ error: message });

@@ -9,8 +9,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->group(function (){
-    Route::post('/register', 'register');
-    Route::post('/login', 'login');
+    Route::post('/register', 'register')->middleware('throttle:3,1');
+    Route::post('/login', 'login')->middleware('throttle:5,1');
     Route::post('/logout', 'logout')->middleware('auth:sanctum');
 });
 
