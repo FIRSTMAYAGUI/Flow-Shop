@@ -4,14 +4,14 @@ import Button from './Button'
 import { Heart, ShoppingCart } from 'lucide-react'
 
 type ProductCardProps = {
-    imageUrl : string
+    image_url : string
     alt? : string
     productName : string
     categoryName : string
     price: number
 }
 
-const ProductCard = ({imageUrl, alt, productName, categoryName, price}: ProductCardProps) => {
+const ProductCard = ({image_url, alt, productName, categoryName, price}: ProductCardProps) => {
   return (
     <div className="relative w-75 bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition"> 
 
@@ -25,7 +25,7 @@ const ProductCard = ({imageUrl, alt, productName, categoryName, price}: ProductC
       <Link to={'/product-detail'}>
         <div className="h-90 w-full overflow-hidden cursor-pointer">
           <img
-            src={imageUrl}
+            src={image_url}
             alt={alt ? alt : "image here"}
             className="w-full h-full object-cover"
           />

@@ -4,7 +4,7 @@ import { images } from "./images";
 export const fakeProducts = [
   {
     id: 1,
-    imageUrl: images.technology,
+    image_url: images.technology,
     alt: "Laptop",
     productName: "Latest Laptops",
     categoryName: "Electronics",
@@ -12,7 +12,7 @@ export const fakeProducts = [
   },
   {
     id: 2,
-    imageUrl: images.womanWithGlasses,
+    image_url: images.womanWithGlasses,
     alt: "Sunglasses",
     productName: "Sun glasses",
     categoryName: "Fashion",
@@ -20,7 +20,7 @@ export const fakeProducts = [
   },
   {
     id: 3,
-    imageUrl: images.womanShop,
+    image_url: images.womanShop,
     alt: "Jackets",
     productName: "Nice Jackets",
     categoryName: "Outfits",
@@ -28,7 +28,7 @@ export const fakeProducts = [
   },
   {
     id: 4,
-    imageUrl: images.girlWithHeadset,
+    image_url: images.girlWithHeadset,
     alt: "Headset",
     productName: "High quality Headsets",
     categoryName: "Electronics",
@@ -36,7 +36,7 @@ export const fakeProducts = [
   },
   {
     id: 5,
-    imageUrl: images.girlWithHeadset,
+    image_url: images.girlWithHeadset,
     alt: "Headset",
     productName: "High quality Headsets",
     categoryName: "Electronics",
@@ -44,7 +44,7 @@ export const fakeProducts = [
   },
   {
     id: 6,
-    imageUrl: images.girlWithHeadset,
+    image_url: images.girlWithHeadset,
     alt: "Headset",
     productName: "High quality Headsets",
     categoryName: "Electronics",
@@ -52,7 +52,7 @@ export const fakeProducts = [
   },
   {
     id: 7,
-    imageUrl: images.girlWithHeadset,
+    image_url: images.girlWithHeadset,
     alt: "Headset",
     productName: "High quality Headsets",
     categoryName: "Electronics",
@@ -60,7 +60,7 @@ export const fakeProducts = [
   },
   {
     id: 8,
-    imageUrl: images.girlWithHeadset,
+    image_url: images.girlWithHeadset,
     alt: "Headset",
     productName: "High quality Headsets",
     categoryName: "Electronics",

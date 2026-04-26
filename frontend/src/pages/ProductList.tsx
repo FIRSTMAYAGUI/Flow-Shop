@@ -43,7 +43,7 @@ const ProductList = () => {
           {fakeProducts.map((product) => (
             <ProductCard
               key={product.id}
-              imageUrl={product.imageUrl}
+              image_url={product.image_url}
               alt={product.alt}
               productName={product.productName}
               categoryName={product.categoryName}
