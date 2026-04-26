@@ -1,4 +1,3 @@
-// src/data/products.ts
 
 import { images } from "./images";
 

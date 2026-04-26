@@ -4,7 +4,7 @@ import SearchInput from "../components/SearchInput"
 import SortInput from "../components/SortInput"
 import PageTitle from "../components/PageTitle"
 import Button from "../components/Button"
-import { fakeProducts } from "../productData"
+import { fakeProducts } from "../fakeProductData"
 import { useProductStore } from "../features/products/productStore"
 import { useEffect } from "react"
 
