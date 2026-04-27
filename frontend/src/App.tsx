@@ -15,7 +15,7 @@ import NotFoundPage from './pages/404Page'
 import { Toaster } from 'react-hot-toast'
 import { useAuthStore } from './features/auth/authStore'
 import { useEffect } from 'react'
-import { BounceLoader } from 'react-spinners'
+import { MoonLoader } from 'react-spinners'
 import ProtectedRoutes from './components/layouts/ProtectedRoutes'
 import GuestRoutes from './components/layouts/GuestRoutes'
 
@@ -31,7 +31,7 @@ function App() {
     {
       isCheckingAuth ? (
       <div className='h-screen flex justify-center items-center'>
-        <BounceLoader size={80} color="#4f8cff"/>
+        <MoonLoader size={60} color="#4f8cff"/>
       </div>) :
       (
         <>
