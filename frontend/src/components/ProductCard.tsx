@@ -4,6 +4,7 @@ import Button from './Button'
 import { Heart, ShoppingCart } from 'lucide-react'
 
 type ProductCardProps = {
+  id : string | number
   image_url : string | null
   alt? : string
   productName : string
@@ -11,7 +12,7 @@ type ProductCardProps = {
   price: number
 }
 
-const ProductCard = ({image_url, alt, productName, categoryName, price}: ProductCardProps) => {
+const ProductCard = ({id, image_url, alt, productName, categoryName, price}: ProductCardProps) => {
   return (
     <div className="relative w-75 bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition"> 
 
@@ -22,7 +23,7 @@ const ProductCard = ({image_url, alt, productName, categoryName, price}: Product
         <Heart size={20} />
       </button>
       {/* Image */}
-      <Link to={'/product-detail'}>
+      <Link to={`/product/${id}`}>
         <div className="h-90 w-full overflow-hidden cursor-pointer">
           <img
             src={image_url ?? ''} /* the issue is here "Type 'string | null | undefined' is not assignable to type 'string | undefined'.

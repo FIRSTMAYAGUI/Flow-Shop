@@ -56,6 +56,7 @@ const ProductList = () => {
           {products ? products.map((product: Products) => (
             <ProductCard
               key={product.id}
+              id={product.id}
               image_url={product.image_url ?? ''}
               alt={product.name}
               productName={product.name}
