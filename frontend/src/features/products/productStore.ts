@@ -4,7 +4,7 @@ import { allProducts } from "./productService";
 import axios from "axios";
 
 type ProductState = {
-    products: Products | null;
+    products: Products[] | null;
     error: string | null;
     loading: boolean;
     getProducts: () => Promise<boolean>

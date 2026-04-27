@@ -4,9 +4,11 @@ import SearchInput from "../components/SearchInput"
 import SortInput from "../components/SortInput"
 import PageTitle from "../components/PageTitle"
 import Button from "../components/Button"
-import { fakeProducts } from "../fakeProductData"
+//import { fakeProducts } from "../fakeProductData"
 import { useProductStore } from "../features/products/productStore"
 import { useEffect } from "react"
+import type { Products } from "../features/products/productsTypes"
+import { MoonLoader } from "react-spinners"
 
 const ProductList = () => {
 
@@ -15,9 +17,9 @@ const ProductList = () => {
   useEffect(()=>{
     getProducts();
   }, [getProducts]) 
-  /* console.log('error is:', error);
+  console.log('error is:', error);
   console.log('fetched products:', products);
-  console.log(typeof products); */
+  console.log(typeof products);
 
   return (
     <>
@@ -40,7 +42,7 @@ const ProductList = () => {
 
         </div>
         <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center ">
-          {fakeProducts.map((product) => (
+          {/* {fakeProducts.map((product) => (
             <ProductCard
               key={product.id}
               image_url={product.image_url}
@@ -49,20 +51,19 @@ const ProductList = () => {
               categoryName={product.categoryName}
               price={product.price}
             />
-          ))}  
+          ))} */}  
 
-          {/* {products ? products.map((product) => (
+          {products ? products.map((product: Products) => (
             <ProductCard
               key={product.id}
-              imageUrl={product.imageUrl}
-              alt={product.alt}
-              productName={product.productName}
-              categoryName={product.categoryName}
+              image_url={product.image_url ?? ''}
+              alt={product.name}
+              productName={product.name}
+              categoryName={product.category_id}
               price={product.price}
             />
-          )) : 'nothing'}  */} 
-
-          
+          )) : (<MoonLoader size={60} color="#4f8cff"/>)}  
+         
         </div>
         {/* pagination UI */}
         <div className="mt-12 flex justify-center items-center gap-3">
