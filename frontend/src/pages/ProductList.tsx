@@ -60,7 +60,7 @@ const ProductList = () => {
               image_url={product.image_url ?? ''}
               alt={product.name}
               productName={product.name}
-              categoryName={product.category_id}
+              categoryName={product.category.name}
               price={product.price}
             />
           )) : (<MoonLoader size={60} color="#4f8cff"/>)}  

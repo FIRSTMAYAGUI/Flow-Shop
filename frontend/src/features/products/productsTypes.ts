@@ -1,7 +1,10 @@
+import type { Category } from "../categories/categoryTypes";
+
 export type Products = {
     id: number | string;
     user_id : number | string;
     category_id : number | string;
+    category: Category
     name : string;
     quantity : number;
     price : number;

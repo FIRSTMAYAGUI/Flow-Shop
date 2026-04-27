@@ -15,9 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->get();
+        $products = Product::with('category')->get();
 
-        if(empty($products)){
+        if($products->isEmpty()){
             return response()->json([
                 'message' => 'No products found',
                 'status' => 'success',
