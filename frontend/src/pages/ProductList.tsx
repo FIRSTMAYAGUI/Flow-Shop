@@ -9,7 +9,6 @@ import { useProductStore } from "../features/products/productStore"
 import { useEffect } from "react"
 import type { Products } from "../features/products/productsTypes"
 import { MoonLoader } from "react-spinners"
-import { images } from "../images"
 
 const ProductList = () => {
 
@@ -58,7 +57,7 @@ const ProductList = () => {
             <ProductCard
               key={product.id}
               id={product.id}
-              image_url={product.image_url ?? images.technology}
+              image_url={product.image_url ? product.image_url : ''}
               alt={product.name}
               productName={product.name}
               categoryName={product.category.name}

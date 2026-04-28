@@ -37,4 +37,10 @@ class Product extends Model
     public function favorites(){
         return $this->hasMany(Favorites::class);
     }
+
+    //accesor to get the full path to an image
+    public function getImageUrlAttribute($value)
+    {
+        return $value ? asset('storage/' . $value) : null;
+    }
 }
