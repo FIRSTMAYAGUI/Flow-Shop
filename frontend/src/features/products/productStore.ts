@@ -1,31 +1,49 @@
 import { create } from "zustand";
 import type { Products } from "./productsTypes";
-import { allProducts } from "./productService";
+import api from "../../services/axios";
 import axios from "axios";
 
 type ProductState = {
     products: Products[] | null;
+    pagination: {
+        currentPage: number;
+        lastPage: number;
+        total: number;
+    };
     error: string | null;
     loading: boolean;
-    getProducts: () => Promise<boolean>
+    getProducts: (page?: number) => Promise<boolean>
 }
 
 export const useProductStore = create<ProductState>((set) => ({
     products: null,
     error: null,
     loading: false,
+    pagination: {
+        currentPage: 1,
+        lastPage: 1,
+        total: 0,
+    },
 
-    getProducts: async () => {
+    getProducts: async (page = 1) => {
         try {
-            set({ error: null });//setting the error to null in case there waas a previous error
-            set({loading: true});//setting loading to true
 
-            const res = await allProducts();
-            console.log("response from product service: ", res.products)
+            set({ error: null, loading: true });
 
-            set({ products: res.products });
+            const res = await api.get(`/products?page=${page}`);
 
-            return true
+            const paginated = res.data.products;
+
+            set({
+                products: paginated.data,
+                pagination: {
+                    currentPage: paginated.current_page,
+                    lastPage: paginated.last_page,
+                    total: paginated.total,
+                },
+            });
+
+            return true;
 
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {

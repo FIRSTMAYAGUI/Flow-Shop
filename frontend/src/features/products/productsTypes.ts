@@ -15,3 +15,13 @@ export type Products = {
     created_at: string
     updated_at: string
 }
+
+export type PaginatedProducts = {
+  data: Products[];
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
+  next_page_url: string | null;
+  prev_page_url: string | null;
+};

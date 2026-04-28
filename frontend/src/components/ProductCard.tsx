@@ -26,8 +26,7 @@ const ProductCard = ({id, image_url, alt, productName, categoryName, price}: Pro
       <Link to={`/product/${id}`}>
         <div className="h-90 w-full overflow-hidden cursor-pointer">
           <img
-            src={image_url ?? ''} /* the issue is here "Type 'string | null | undefined' is not assignable to type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'." */
+            src={image_url ?? undefined} 
             alt={alt ? alt : "image here"}
             className="w-full h-full object-cover"
           />

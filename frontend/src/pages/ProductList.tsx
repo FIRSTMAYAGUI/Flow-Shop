@@ -12,14 +12,13 @@ import { MoonLoader } from "react-spinners"
 
 const ProductList = () => {
 
-  const { error, products, getProducts } = useProductStore();
+  const { error, products, pagination, getProducts } = useProductStore();
 
   useEffect(()=>{
     getProducts();
   }, [getProducts]) 
   console.log('error is:', error);
-  console.log('fetched products:', products);
-  console.log(typeof products);
+  console.log('pagination :', pagination?.currentPage);
 
   return (
     <>
@@ -57,7 +56,7 @@ const ProductList = () => {
             <ProductCard
               key={product.id}
               id={product.id}
-              image_url={product.image_url ? product.image_url : ''}
+              image_url={product.image_url ? product.image_url : null}
               alt={product.name}
               productName={product.name}
               categoryName={product.category.name}
@@ -72,6 +71,8 @@ const ProductList = () => {
           {/* Previous */}
           <Button
             className="px-4 py-2 border border-neutral-300 rounded-md text-sm hover:bg-gray-100 transition"
+            onClick={() => pagination && getProducts(pagination?.currentPage - 1)}
+            disabled={!pagination || pagination?.currentPage === 1 }
           >
             Prev
           </Button>
@@ -100,6 +101,8 @@ const ProductList = () => {
           {/* Next */}
           <Button
             className="px-4 py-2 border border-neutral-300 rounded-md text-sm hover:bg-gray-100 transition"
+            onClick={() => pagination && getProducts(pagination?.currentPage + 1)}
+            disabled={pagination?.currentPage === pagination?.lastPage ? true : undefined}
           >
             Next
           </Button>
