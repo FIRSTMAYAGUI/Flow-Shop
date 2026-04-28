@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -39,8 +40,10 @@ class Product extends Model
     }
 
     //accesor to get the full path to an image
-    public function getImageUrlAttribute($value)
+    protected function imageUrl(): Attribute
     {
-        return $value ? asset('storage/' . $value) : null;
+        return Attribute::make(
+            get: fn ($value) => $value ? asset('storage/' . $value) : null,
+        );
     }
 }
