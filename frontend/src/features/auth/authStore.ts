@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { login, logout, signup, userData } from "./authService";
 import type { LoginPayload, SignupPayload } from "./authTypes";
 import axios from "axios";
+import api from "../../services/axios";
 
 type User = {
   id: number;
@@ -35,12 +35,12 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({ error: null });//setting the error to null in case there waas a previous error
       set({loading: true});//setting loading to true
 
-      const res = await signup(data);
-      console.log("response from auth service: ", res.user)
-      console.log("token: ", res.token)
-      localStorage.setItem("token", res.token);
+      const res = await api.post('/register', data);
+      console.log("response from auth service: ", res.data.user)
+      console.log("token: ", res.data.token)
+      localStorage.setItem("token", res.data.token);
 
-      set({ user: res.user });
+      set({ user:  res.data.user });
 
       return true
 
@@ -77,13 +77,13 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({ error: null });
       set({loading: true});
 
-      const res = await login(data);
-      console.log("response from auth service: ", res.user)
-      console.log("token: ", res.token)
-      localStorage.setItem("token", res.token);
+      const res = await api.post('/login', data);
+      console.log("response from auth service: ", res.data.user)
+      console.log("token: ", res.data.token)
+      localStorage.setItem("token", res.data.token);
       console.log(localStorage.getItem("token"))
 
-      set({ user: res.user });
+      set({ user: res.data.user });
       return true
 
     } catch (err: unknown) {
@@ -122,7 +122,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   logout: async () => {
     try {
-      await logout();
+      await api.post('/logout');;
       localStorage.removeItem("token");
       set({ user: null });
       return true;
@@ -152,8 +152,8 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
 
     try {
-      const res = await userData();
-      set({ user: res.user });
+      const res = await api.get("/user");
+      set({ user: res.data.user });
     } catch {
       localStorage.removeItem("token");
       set({ user: null });
