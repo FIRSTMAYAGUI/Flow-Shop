@@ -30,7 +30,7 @@ const ProductList = () => {
           
           {/* product count */}
           <p className="text-lg font-medium text-default-gray">
-            9 <span className="text-gray-400">of</span> 20 products
+            {pagination.paginatedProducts} <span className="text-gray-400">of</span> {pagination.total} products
           </p>
 
           {/* search + sort */}
