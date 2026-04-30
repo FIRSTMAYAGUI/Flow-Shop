@@ -8,7 +8,7 @@ type ProductState = {
     pagination: {
         currentPage: number;
         lastPage: number;
-        total: number;
+        totalProducts: number;
         paginatedProducts: number;
     };
     error: string | null;
@@ -23,7 +23,7 @@ export const useProductStore = create<ProductState>((set) => ({
     pagination: {
         currentPage: 1,
         lastPage: 1,
-        total: 0,
+        totalProducts: 0,
         paginatedProducts: 0,
     },
 
@@ -41,7 +41,7 @@ export const useProductStore = create<ProductState>((set) => ({
                 pagination: {
                     currentPage: paginated.current_page,
                     lastPage: paginated.last_page,
-                    total: paginated.total,
+                    totalProducts: paginated.total,
                     paginatedProducts: paginated.to
                 },
             });
