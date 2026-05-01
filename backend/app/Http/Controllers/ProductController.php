@@ -13,23 +13,28 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->paginate(4);
+        $query = Product::with('category');
 
-        if($products->isEmpty()){
-            return response()->json([
-                'message' => 'No products found',
-                'status' => 'success',
-                'products' => $products
-            ], 200);
+        // SEARCH
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('description', 'like', "%{$search}%");
         }
 
+        
+
+        // PAGINATION
+        $products = $query->paginate(4);
+
         return response()->json([
-            'message' => 'Products fetched successfully',
+            'message' => 'products fetched',
             'status' => 'success',
             'products' => $products
-        ], 200);
+        ]);
     }
 
     /**
