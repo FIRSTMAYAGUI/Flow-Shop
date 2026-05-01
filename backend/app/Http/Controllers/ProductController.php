@@ -25,7 +25,17 @@ class ProductController extends Controller
                 ->orWhere('description', 'like', "%{$search}%");
         }
 
-        
+        // SORT
+        if ($request->filled('sort')) {
+            match ($request->sort) {
+                'price_asc' => $query->orderBy('price', 'asc'),
+                'price_desc' => $query->orderBy('price', 'desc'),
+                'newest' => $query->latest(),
+                default => $query->latest(),
+            };
+        } else {
+            $query->latest();
+        }
 
         // PAGINATION
         $products = $query->paginate(4);
