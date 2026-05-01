@@ -18,7 +18,7 @@ type ProductState = {
 
     setSearch: (value: string) => void;
     setSort: (value: string) => void;
-    getProducts: (page?: number) => Promise<boolean>
+    getProducts: (page?: number) => Promise<boolean | undefined>
 }
 
 export const useProductStore = create<ProductState>((set, get) => ({

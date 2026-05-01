@@ -12,7 +12,7 @@ const SearchInput = () => {
   useEffect(() => {
     setSearch(debounced);
     getProducts(1); // reset to page 1 on search
-  }, [debounced]);
+  }, [debounced, setSearch, getProducts]);
 
   return (
     <div className="relative w-full max-w-md">
