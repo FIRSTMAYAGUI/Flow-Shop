@@ -12,11 +12,19 @@ import { MoonLoader } from "react-spinners"
 
 const ProductList = () => {
 
-  const { error, products, pagination, getProducts } = useProductStore();
+  const {
+    products,
+    pagination,
+    loading,
+    error,
+    getProducts,
+  } = useProductStore();
 
-  useEffect(()=>{
-    getProducts();
-  }, [getProducts]) 
+  useEffect(() => {
+    getProducts(1);
+  }, [getProducts]);
+
+  
   console.log('error is:', error);
   console.log('pagination :', pagination?.currentPage);
 
@@ -40,7 +48,8 @@ const ProductList = () => {
           </div>
 
         </div>
-        <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center ">
+
+        {/* <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center ">
           {/* {fakeProducts.map((product) => (
             <ProductCard
               key={product.id}
@@ -50,7 +59,7 @@ const ProductList = () => {
               categoryName={product.categoryName}
               price={product.price}
             />
-          ))} */}  
+          ))}   
 
           {products ? products.map((product: Products) => (
             <ProductCard
@@ -64,15 +73,33 @@ const ProductList = () => {
             />
           )) : (<MoonLoader size={60} color="#4f8cff"/>)}  
          
+        </div> */}
+
+        <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center">
+          { loading ? (<MoonLoader size={60} color="#4f8cff"/>) 
+          : products?.length === 0 ? (
+            <p>No products found</p>
+          ) : (
+            products?.map((product : Products) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                image_url={product.image_url}
+                alt={product.name}
+                productName={product.name}
+                categoryName={product.category.name}
+                price={Number(product.price)}
+              />
+            ))
+          )}
         </div>
+          
         {/* pagination UI */}
         <div className="mt-12 flex justify-center items-center gap-3">
-          
-          {/* Previous */}
           <Button
             className="px-4 py-2 border border-neutral-300 rounded-md text-sm hover:bg-gray-100 transition"
-            onClick={() => pagination && getProducts(pagination?.currentPage - 1)}
-            disabled={!pagination || pagination?.currentPage === 1 }
+            onClick={() => getProducts(pagination.currentPage - 1)}
+            disabled={pagination.currentPage === 1}
           >
             Prev
           </Button>
@@ -98,15 +125,13 @@ const ProductList = () => {
             5
           </button>
 
-          {/* Next */}
           <Button
             className="px-4 py-2 border border-neutral-300 rounded-md text-sm hover:bg-gray-100 transition"
-            onClick={() => pagination && getProducts(pagination?.currentPage + 1)}
-            disabled={pagination?.currentPage === pagination?.lastPage ? true : undefined}
+            onClick={() => getProducts(pagination.currentPage + 1)}
+            disabled={pagination.currentPage === pagination.lastPage}
           >
             Next
           </Button>
-
         </div>
 
       </Container>

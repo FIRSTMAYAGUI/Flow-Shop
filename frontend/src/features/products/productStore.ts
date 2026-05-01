@@ -11,44 +11,59 @@ type ProductState = {
         totalProducts: number;
         paginatedProducts: number;
     };
-    error: string | null;
+    search: string;
+    sort: string;
     loading: boolean;
+    error: string | null;
+
+    setSearch: (value: string) => void;
+    setSort: (value: string) => void;
     getProducts: (page?: number) => Promise<boolean>
 }
 
-export const useProductStore = create<ProductState>((set) => ({
-    products: null,
-    error: null,
-    loading: false,
-    pagination: {
-        currentPage: 1,
-        lastPage: 1,
-        totalProducts: 0,
-        paginatedProducts: 0,
-    },
+export const useProductStore = create<ProductState>((set, get) => ({
+  products: [],
+  loading: false,
+  error: null,
+  search: "",
+  sort: "",
 
-    getProducts: async (page = 1) => {
-        try {
+  pagination: {
+    currentPage: 1,
+    lastPage: 1,
+    totalProducts: 0,
+    paginatedProducts: 0,
+  },
 
-            set({ error: null, loading: true });
+  setSearch: (value) => set({ search: value }),
+  setSort: (value) => set({ sort: value }),
 
-            const res = await api.get(`/products?page=${page}`);
+  getProducts: async (page = 1) => {
+    try {
+      set({ loading: true, error: null });
 
-            const paginated = res.data.products;
+      const { search, sort } = get();
 
-            set({
-                products: paginated.data,
-                pagination: {
-                    currentPage: paginated.current_page,
-                    lastPage: paginated.last_page,
-                    totalProducts: paginated.total,
-                    paginatedProducts: paginated.to
-                },
-            });
+      const res = await api.get("/products", {
+        params: {
+          page,
+          search,
+          sort,
+        },
+      });
 
-            return true;
+      const paginated = res.data.products;
 
-        } catch (err: unknown) {
+      set({
+        products: paginated.data,
+        pagination: {
+          currentPage: paginated.current_page,
+          lastPage: paginated.last_page,
+          totalProducts: paginated.total,
+          paginatedProducts: paginated.to,
+        },
+      });
+    } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
                 const errors = err.response?.data?.errors;
 
