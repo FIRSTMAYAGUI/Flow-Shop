@@ -113,30 +113,34 @@ const ProductDetail = () => {
         <SectionTitle className="my-8">Similar Products</SectionTitle>
         <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center">
           <ProductCard
-            imageUrl={Technology}
+            id={2}
+            image_url={Technology}
             alt={""} 
             productName={"Latest Latops"}
             categoryName={"Electronics"}
             price={44.9}
           />
 
-          <ProductCard 
-            imageUrl={WomanWithGlasses}
+          <ProductCard
+            id={2} 
+            image_url={WomanWithGlasses}
             alt={""} 
             productName={"Sun glasses"}
             categoryName={"Fashion"}
             price={49.5}
           />
 
-          <ProductCard 
-            imageUrl={WomanShop}
+          <ProductCard
+            id={2} 
+            image_url={WomanShop}
             alt={""} 
             productName={"Nice Jackets"}
             categoryName={"Out fits"}
             price={119.0}
           />
-          <ProductCard 
-            imageUrl={GameController}
+          <ProductCard
+            id={2} 
+            image_url={GameController}
             alt={""} 
             productName={"Newest Gaming Controller"}
             categoryName={"Gaming"}
