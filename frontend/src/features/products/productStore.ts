@@ -1,10 +1,11 @@
 import { create } from "zustand";
-import type { Products } from "./productsTypes";
+import type { Product } from "./productsTypes";
 import api from "../../services/axios";
 import axios from "axios";
 
 type ProductState = {
-    products: Products[] | null;
+    products: Product[] | null;
+    product: Product | null;
     pagination: {
         currentPage: number;
         lastPage: number;
@@ -23,6 +24,7 @@ type ProductState = {
 
 export const useProductStore = create<ProductState>((set, get) => ({
   products: [],
+  product: null,
   loading: false,
   error: null,
   search: "",
@@ -64,30 +66,30 @@ export const useProductStore = create<ProductState>((set, get) => ({
         },
       });
     } catch (err: unknown) {
-            if (axios.isAxiosError(err)) {
-                const errors = err.response?.data?.errors;
+      if (axios.isAxiosError(err)) {
+          const errors = err.response?.data?.errors;
 
-                let message = "Something went wrong";
+          let message = "Something went wrong";
 
-                if (errors && typeof errors === "object") {
-                const firstError = Object.values(errors)[0]; 
+          if (errors && typeof errors === "object") {
+          const firstError = Object.values(errors)[0]; 
 
-                if (Array.isArray(firstError)) {
-                    message = firstError[0]; 
-                } else if (typeof firstError === "string") {
-                    message = firstError;
-                }
-                }
+          if (Array.isArray(firstError)) {
+              message = firstError[0]; 
+          } else if (typeof firstError === "string") {
+              message = firstError;
+          }
+          }
 
-                set({ error: message });
-            } else {
-                set({ error: "Something went wrong" });
-            }
-            
-            return false;
+          set({ error: message });
+      } else {
+          set({ error: "Something went wrong" });
+      }
+      
+      return false;
 
-        } finally{
-            set({loading: false});
-        }
-    }
+  } finally{
+      set({loading: false});
+  }
+  }
 }))

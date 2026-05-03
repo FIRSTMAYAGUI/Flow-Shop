@@ -1,6 +1,6 @@
 import type { Category } from "../categories/categoryTypes";
 
-export type Products = {
+export type Product = {
   id: number | string;
   user_id : number | string;
   category_id : number | string;
@@ -17,7 +17,7 @@ export type Products = {
 }
 
 export type PaginatedProducts = {
-  data: Products[];
+  data: Product[];
   current_page: number;
   last_page: number;
   per_page: number;

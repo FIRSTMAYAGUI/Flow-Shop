@@ -7,7 +7,7 @@ import Button from "../components/Button"
 //import { fakeProducts } from "../fakeProductData"
 import { useProductStore } from "../features/products/productStore"
 import { useEffect } from "react"
-import type { Products } from "../features/products/productsTypes"
+import type { Product } from "../features/products/productsTypes"
 import { MoonLoader } from "react-spinners"
 
 const ProductList = () => {
@@ -80,7 +80,7 @@ const ProductList = () => {
           : products?.length === 0 ? (
             <p>No products found</p>
           ) : (
-            products?.map((product : Products) => (
+            products?.map((product : Product) => (
               <ProductCard
                 key={product.id}
                 id={product.id}
