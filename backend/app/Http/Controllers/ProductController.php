@@ -25,18 +25,6 @@ class ProductController extends Controller
                 ->orWhere('description', 'like', "%{$search}%");
         }
 
-        // SORT
-        if ($request->filled('sort')) {
-            match ($request->sort) {
-                'price_asc' => $query->orderBy('price', 'asc'),
-                'price_desc' => $query->orderBy('price', 'desc'),
-                'newest' => $query->latest(),
-                default => $query->latest(),
-            };
-        } else {
-            $query->latest();
-        }
-
         // PAGINATION
         $products = $query->paginate(4);
 
@@ -111,21 +99,29 @@ class ProductController extends Controller
      */
     public function show(string $productId)
     {
-        $product = Product::find($productId);
-        if(!$product){
+        $product = Product::with('category')->find($productId);
+
+        if (!$product) {
             return response()->json([
                 'message' => 'Product not found',
                 'status' => 'failed',
             ], 404);
         }
 
-        $product->load('category');
+        // Similar products (same category, exclude current product)
+        $similarProducts = Product::with('category')
+            ->where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->latest()
+            ->take(4)
+            ->get();
 
         return response()->json([
             'message' => 'Product fetched successfully',
             'status' => 'success',
-            'product' => $product
-        ], 200); 
+            'product' => $product,
+            'similar_products' => $similarProducts
+        ], 200);
     }
 
     /**
