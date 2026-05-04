@@ -6,11 +6,12 @@ import axios from "axios";
 type ProductState = {
     products: Product[] | null;
     product: Product | null;
+    similar_products: Product[] | null;
     pagination: {
-        currentPage: number;
-        lastPage: number;
-        totalProducts: number;
-        paginatedProducts: number;
+      currentPage: number;
+      lastPage: number;
+      totalProducts: number;
+      paginatedProducts: number;
     };
     search: string;
     sort: string;
@@ -20,11 +21,13 @@ type ProductState = {
     setSearch: (value: string) => void;
     setSort: (value: string) => void;
     getProducts: (page?: number) => Promise<boolean | undefined>
+    getProductDetails: (id: number | string ) => Promise<boolean>
 }
 
 export const useProductStore = create<ProductState>((set, get) => ({
   products: [],
   product: null,
+  similar_products: [],
   loading: false,
   error: null,
   search: "",
@@ -66,30 +69,45 @@ export const useProductStore = create<ProductState>((set, get) => ({
         },
       });
     } catch (err: unknown) {
+      let message = "Something went wrong";
+
       if (axios.isAxiosError(err)) {
-          const errors = err.response?.data?.errors;
-
-          let message = "Something went wrong";
-
-          if (errors && typeof errors === "object") {
-          const firstError = Object.values(errors)[0]; 
-
-          if (Array.isArray(firstError)) {
-              message = firstError[0]; 
-          } else if (typeof firstError === "string") {
-              message = firstError;
-          }
-          }
-
-          set({ error: message });
-      } else {
-          set({ error: "Something went wrong" });
+        message = err.response?.data?.message || message;
       }
-      
+
+      set({ error: message });
       return false;
 
-  } finally{
-      set({loading: false});
-  }
-  }
+    } finally{
+        set({loading: false});
+    }
+  },
+
+  getProductDetails: async (id) => {
+    try {
+      set({ loading: true, error: null });
+
+      const res = await api.get(`/products/${id}`);
+
+      set({
+        product: res.data.product,
+        similar_products: res.data.similar_products,
+      });
+
+      return true;
+    } catch (err: unknown) {
+      let message = "Something went wrong";
+
+      if (axios.isAxiosError(err)) {
+        message = err.response?.data?.message || message;
+      }
+
+      set({ error: message });
+      return false;
+
+    } finally {
+      set({ loading: false });
+    }
+  },
+  
 }))

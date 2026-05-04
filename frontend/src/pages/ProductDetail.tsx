@@ -4,14 +4,26 @@ import GirlWithHeadset from "../assets/images/girl-with-headset.jpg"
 import { Heart, ShoppingCart, Minus, Plus } from "lucide-react"
 import Button from "../components/Button"
 import ProductCard from "../components/ProductCard"
-import  WomanShop  from "../assets/images/woman-shop.jpg"
-import  WomanWithGlasses  from "../assets/images/woman-infront-building.jpg"
-import GameController from "../assets/images/gaming-controllers.jpg"
-import Technology from "../assets/images/technology.jpg"
 import SectionTitle from "../components/SectionTitle"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
+import { useProductStore } from "../features/products/productStore"
+import { useEffect } from "react"
+import { MoonLoader } from "react-spinners"
 
 const ProductDetail = () => {
+  const { id } = useParams();
+  const { product, similar_products, getProductDetails, loading } = useProductStore();
+  
+  useEffect(() => {
+    if (id) {
+      getProductDetails(id);
+    }
+  }, [id, getProductDetails]);
+
+  if(loading) return <div className='h-screen flex justify-center items-center'>
+        <MoonLoader size={60} color="#4f8cff"/>
+      </div>
+
   return (
     <>
       <Container>
@@ -22,7 +34,7 @@ const ProductDetail = () => {
             {/* Main image */}
             <div className="w-full h-124 rounded-2xl overflow-hidden bg-neutral-100">
               <img
-                src={GirlWithHeadset}
+                src={product?.image_url || ""}
                 alt="Product"
                 className="w-full h-full object-cover"
               />
@@ -50,29 +62,30 @@ const ProductDetail = () => {
 
             {/* Category */}
             <span className="text-sm uppercase tracking-wide text-light-gray">
-              Electronics
+              {product?.category.name}
             </span>
 
             {/* Name */}
             <h1 className="text-4xl font-extrabold text-default-gray">
-              Wireless Headset Pro
+              {product?.name}
             </h1>
 
             {/* Price */}
             <p className="text-3xl font-bold text-primary-color">
-              $199.99
+              {product?.price} FCFA
             </p>
 
             {/* Description */}
             <p className="text-gray-600 leading-relaxed max-w-xl">
-              Experience immersive sound quality with our premium wireless headset,
-              designed for comfort, clarity, and long-lasting performance.
+              {product?.description? product.description : "No description"}
             </p>
 
             {/* Stock */}
             <div className="flex gap-1 items-center">
-              <p className="w-3 h-3 rounded-full bg-green-600"></p> 
-              <span className="text-sm font-medium">In stock</span>
+              {product?.in_stock && <><p className="w-3 h-3 rounded-full bg-green-600"></p> 
+              <span className="text-sm font-medium">In stock</span></>}
+              {!product?.in_stock && <><p className="w-3 h-3 rounded-full bg-red-600"></p> 
+              <span className="text-sm font-medium">Out of stock</span></>}
             </div>
 
             {/* Quantity */}
@@ -112,40 +125,17 @@ const ProductDetail = () => {
       <Container>
         <SectionTitle className="my-8">Similar Products</SectionTitle>
         <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center">
-          <ProductCard
-            id={2}
-            image_url={Technology}
-            alt={""} 
-            productName={"Latest Latops"}
-            categoryName={"Electronics"}
-            price={44.9}
-          />
-
-          <ProductCard
-            id={2} 
-            image_url={WomanWithGlasses}
-            alt={""} 
-            productName={"Sun glasses"}
-            categoryName={"Fashion"}
-            price={49.5}
-          />
-
-          <ProductCard
-            id={2} 
-            image_url={WomanShop}
-            alt={""} 
-            productName={"Nice Jackets"}
-            categoryName={"Out fits"}
-            price={119.0}
-          />
-          <ProductCard
-            id={2} 
-            image_url={GameController}
-            alt={""} 
-            productName={"Newest Gaming Controller"}
-            categoryName={"Gaming"}
-            price={35}
-          />         
+          {similar_products?.map((p) => (
+            <ProductCard
+              key={p.id}
+              id={p.id}
+              image_url={p.image_url}
+              alt={p.name}
+              productName={p.name}
+              categoryName={p.category?.name}
+              price={p.price}
+            />
+          ))}       
         </div>
       </Container>
     </>
