@@ -3,15 +3,31 @@ import Container from "../components/Container"
 import ProductCard from "../components/ProductCard"
 import SectionTitle from "../components/SectionTitle"
 import  WomanShop  from "../assets/images/woman-shop.jpg"
-import  WomanWithGlasses  from "../assets/images/woman-infront-building.jpg"
 import GameController from "../assets/images/gaming-controllers.jpg"
 import Technology from "../assets/images/technology.jpg"
 import Basketball from "../assets/images/basketball.jpg"
-import GirlWithHeadset from "../assets/images/girl-with-headset.jpg"
 import { Link } from "react-router-dom"
 import CategoryCard from "../components/CategoryCard"
+import { useProductStore } from "../features/products/productStore"
+import { useEffect } from "react"
+import { MoonLoader } from "react-spinners"
+import type { Product } from "../features/products/productsTypes"
 
 const  Home = () => {
+  const {
+      products,
+      loading,
+      getProducts,
+    } = useProductStore();
+  
+    useEffect(() => {
+      getProducts(1);
+    }, [getProducts]);
+
+    if(loading) return <div className='h-screen flex justify-center items-center'>
+            <MoonLoader size={60} color="#4f8cff"/>
+          </div>
+
   return (
     <>
     {/* Product Section */}
@@ -19,65 +35,16 @@ const  Home = () => {
         <div className="flex flex-col py-10 gap-18">
           <SectionTitle>Featured Products</SectionTitle>
           <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center ">
-            <ProductCard 
-              imageUrl={Technology}
-              alt={""} 
-              productName={"Latest Latops"}
-              categoryName={"Electronics"}
-              price={44.9}
-            />
-
-            <ProductCard 
-              imageUrl={WomanWithGlasses}
-              alt={""} 
-              productName={"Sun glasses"}
-              categoryName={"Fashion"}
-              price={49.5}
-            />
-
-            <ProductCard 
-              imageUrl={WomanShop}
-              alt={""} 
-              productName={"Nice Jackets"}
-              categoryName={"Out fits"}
-              price={119.0}
-            />
-
-            <ProductCard 
-              imageUrl={GirlWithHeadset}
-              alt={""} 
-              productName={"High quality Headsets"}
-              categoryName={"Fashion"}
-              price={59.9}
-            />
-            <ProductCard 
-            imageUrl={GameController}
-            alt={""} 
-            productName={"Newest Gaming Controller"}
-            categoryName={"Gaming"}
-            price={35}
-          />
-          <ProductCard 
-            imageUrl={GirlWithHeadset}
-            alt={""} 
-            productName={"High quality Headsets"}
-            categoryName={"Fashion"}
-            price={59.9}
-          />
-          <ProductCard 
-            imageUrl={Basketball}
-            alt={""} 
-            productName={"Baskeball outfits"}
-            categoryName={"Sports"}
-            price={20}
-          />
-          <ProductCard 
-            imageUrl={GirlWithHeadset}
-            alt={""} 
-            productName={"High quality Headsets"}
-            categoryName={"Fashion"}
-            price={59.9}
-          />
+            {products?.map((product: Product) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              image_url={product.image_url ? product.image_url : null}
+              alt={product.name}
+              productName={product.name}
+              categoryName={product.category.name}
+              price={product.price}
+            />))}
           </div>
 
           <div className="flex justify-center items-center">
