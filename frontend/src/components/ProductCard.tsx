@@ -14,7 +14,7 @@ type ProductCardProps = {
 
 const ProductCard = ({id, image_url, alt, productName, categoryName, price}: ProductCardProps) => {
   return (
-    <div className="relative w-75 bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition"> 
+    <div className="relative w-83 bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition"> 
 
       {/* Favorite icon */}
       <button className="absolute top-4 right-4 z-10 bg-white/90 rounded-full hover:text-primary-color transition p-2 hover:bg-neutral-100 text-gray-500"
@@ -24,7 +24,7 @@ const ProductCard = ({id, image_url, alt, productName, categoryName, price}: Pro
       </button>
       {/* Image */}
       <Link to={`/product/${id}`}>
-        <div className="h-90 w-full overflow-hidden cursor-pointer">
+        <div className="h-80 w-full overflow-hidden cursor-pointer">
           <img
             src={image_url ?? undefined} 
             alt={alt ? alt : "image here"}
