@@ -12,23 +12,27 @@ class CategoriesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Categories::paginate(4);
+        $query = Categories::query();
 
-        if(empty($categories)){
-            return response()->json([
-                'message' => 'No categories found',
-                'status' => 'success',
-                'categories' => $categories
-            ], 200);
+        if($request->filled('search')){
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if($request->filled('limit')){
+            $categories = $query->latest()
+                ->limit($request->limit)
+                ->get();
+        } else {
+            $categories = $query->latest()
+                ->paginate(10);
         }
 
         return response()->json([
-            'message' => 'categories fetched successfully',
             'status' => 'success',
             'categories' => $categories
-        ], 200);
+        ]);
     }
 
     /**
