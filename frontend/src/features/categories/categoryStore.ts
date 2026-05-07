@@ -10,7 +10,7 @@ type CategoryState = {
     getCategories: () => Promise<boolean | undefined>
 }
 
-export const useProductStore = create<CategoryState>((set) => ({
+export const useCategoriesStore = create<CategoryState>((set) => ({
   categories: [],
   loading: false,
   error: null,

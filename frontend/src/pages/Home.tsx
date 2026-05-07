@@ -2,16 +2,13 @@ import Button from "../components/Button"
 import Container from "../components/Container"
 import ProductCard from "../components/ProductCard"
 import SectionTitle from "../components/SectionTitle"
-import  WomanShop  from "../assets/images/woman-shop.jpg"
-import GameController from "../assets/images/gaming-controllers.jpg"
-import Technology from "../assets/images/technology.jpg"
-import Basketball from "../assets/images/basketball.jpg"
 import { Link } from "react-router-dom"
 import CategoryCard from "../components/CategoryCard"
 import { useProductStore } from "../features/products/productStore"
 import { useEffect } from "react"
 import { MoonLoader } from "react-spinners"
 import type { Product } from "../features/products/productsTypes"
+import { useCategoriesStore } from "../features/categories/categoryStore"
 
 const  Home = () => {
   const {
@@ -19,12 +16,15 @@ const  Home = () => {
       loading,
       getProducts,
     } = useProductStore();
+
+  const {categories, loading: categoriesLoading, getCategories} = useCategoriesStore()
   
     useEffect(() => {
       getProducts(1);
-    }, [getProducts]);
+      getCategories();
+    }, [getProducts, getCategories]);
 
-    if(loading) return <div className='h-screen flex justify-center items-center'>
+    if(loading || categoriesLoading) return <div className='h-screen flex justify-center items-center'>
             <MoonLoader size={60} color="#4f8cff"/>
           </div>
 
@@ -60,26 +60,14 @@ const  Home = () => {
         <div className="flex flex-col py-10 gap-18">
           <SectionTitle>Popular Categories</SectionTitle>
           <div className="w-full flex flex-wrap gap-12 justify-center ">
-            <CategoryCard
-            imageUrl = {Basketball}
-            alt = {''}
-            categoryName = {'Sports'}
-            />
-            <CategoryCard
-            imageUrl = {Technology}
-            alt = {''}
-            categoryName = {'Electronics'}
-            />
-            <CategoryCard
-            imageUrl = {WomanShop}
-            alt = {''}
-            categoryName = {'Fashion'}
-            />
-            <CategoryCard
-            imageUrl = {GameController}
-            alt = {''}
-            categoryName = {'Gaming'}
-            />
+            {categories?.map((category) => (
+              <CategoryCard
+                key={category.id}
+                image_url={category.image_url}
+                alt={category.name}
+                categoryName={category.name}
+              />
+            ))}
           </div>
         </div>
       </Container>
