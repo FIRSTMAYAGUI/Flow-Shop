@@ -14,20 +14,20 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Categories::latest()->get();
+        $categories = Categories::paginate(4);
 
         if(empty($categories)){
             return response()->json([
                 'message' => 'No categories found',
                 'status' => 'success',
-                'data' => $categories
+                'categories' => $categories
             ], 200);
         }
 
         return response()->json([
             'message' => 'categories fetched successfully',
             'status' => 'success',
-            'data' => $categories
+            'categories' => $categories
         ], 200);
     }
 
