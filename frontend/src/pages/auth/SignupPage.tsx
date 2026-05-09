@@ -86,7 +86,7 @@ const SignupPage = () => {
       }
       ifAccountOrNot={
         <div>
-          Already have an account? <Link to='/login' className="text-primary-color font-medium cursor-pointer">Login</Link>
+          Already have an account? <Link to='/auth/login' className="text-primary-color font-medium cursor-pointer">Login</Link>
         </div>
       }
       onSubmit={onSubmit}

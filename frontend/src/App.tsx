@@ -58,8 +58,8 @@ function App() {
               </Route>
 
               <Route element={<GuestRoutes/>}>
-                <Route path='/signup' element={<SignupPage/>}/>
-                <Route path='/login' element={<LoginPage/>}/>
+                <Route path='/auth/signup' element={<SignupPage/>}/>
+                <Route path='/auth/login' element={<LoginPage/>}/>
               </Route>
               
               <Route path='/404' element={<NotFoundPage/>}/>

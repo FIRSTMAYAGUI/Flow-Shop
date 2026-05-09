@@ -86,7 +86,7 @@ const LoginPage = () => {
       }
       ifAccountOrNot={
         <div>
-          Don't have an account? <Link to='/signup' className="text-primary-color font-medium cursor-pointer">Signup</Link>
+          Don't have an account? <Link to='/auth/signup' className="text-primary-color font-medium cursor-pointer">Signup</Link>
         </div>
       }
     >

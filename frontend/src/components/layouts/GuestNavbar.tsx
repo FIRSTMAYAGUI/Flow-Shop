@@ -35,7 +35,7 @@ const GuestNavbar = ({ color, borderColor }: { color?: string; borderColor?: str
 
 
         {/* Login */}
-        <Link to='/login'>
+        <Link to='/auth/login'>
           <Button className={`hover:border-hover hover:text-hover px-6 py-2 rounded-md ${color} ${borderColor}`}>Login</Button>
         </Link>
 

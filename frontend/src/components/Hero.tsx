@@ -15,7 +15,7 @@ const Hero = () => {
 
       <div className="mt-8 flex gap-4">
         <Button className="bg-primary-color text-white font-semibold hover:bg-secondary-color border-none">
-          <Link to={'/product'}>Shop Now</Link>
+          <Link to={'/products'}>Shop Now</Link>
         </Button>
 
         <Button className="text-white border-white hover:border-hover hover:text-hover">
