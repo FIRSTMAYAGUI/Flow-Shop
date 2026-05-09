@@ -84,7 +84,7 @@ const  Home = () => {
           </p>
 
           <div className="mt-8">
-            <Link to="/product">
+            <Link to="/products">
               <Button className="bg-white text-primary-color font-bold px-8 py-4 rounded-xl hover:bg-gray-100">Browse Products</Button>
             </Link>
           </div>
