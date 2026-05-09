@@ -8,7 +8,7 @@ import { useProductStore } from "../features/products/productStore"
 import { useEffect } from "react"
 import { MoonLoader } from "react-spinners"
 import type { Product } from "../features/products/productsTypes"
-import { useCategoriesStore } from "../features/categories/categoryStore"
+import { useCategoryStore } from "../features/categories/categoryStore"
 
 const  Home = () => {
   const {
@@ -17,7 +17,7 @@ const  Home = () => {
       getProducts,
     } = useProductStore();
 
-  const {categories, loading: categoriesLoading, getCategories} = useCategoriesStore()
+  const {categories, loading: categoriesLoading, getCategories} = useCategoryStore()
   
     useEffect(() => {
       getProducts(1);
