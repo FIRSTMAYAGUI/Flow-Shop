@@ -15,8 +15,12 @@ type CartState = {
   deleteProduct: (productId: number | string) => void;
 
   resetCart: () => void;
+};
 
-  calculateTotals: () => void;
+const updateTotals = (items: CartItem[]) => {
+  const totalPrice = items.reduce((acc, item) => acc + (item.cartQuantity * item.product.price), 0);
+  const itemsCount = items.reduce((acc, item) => acc + item.cartQuantity, 0);
+  return { totalPrice, itemsCount };
 };
 
 export const useCartStore = create<CartState>()(
@@ -28,155 +32,72 @@ export const useCartStore = create<CartState>()(
       totalPrice: 0,
 
       addToCart: (product) => {
-        const cartItems = get().cartItems;
+        console.log('item added')
+        const { cartItems } = get();
+        const existingItem = cartItems.find((item) => item.product.id === product.id);
 
-        const existingProduct = cartItems.find(
-          (item) => item.product.id === product.id
-        );
-
-        let updatedCart: CartItem[] = [];
-
-        // Product already exists
-        if (existingProduct) {
-          updatedCart = cartItems.map((item) => {
-            if (item.product.id === product.id) {
-              const newQuantity = item.cartQuantity + 1;
-
-              return {
-                ...item,
-                cartQuantity: newQuantity,
-                subTotalPrice:
-                  newQuantity * Number(product.price),
-              };
-            }
-
-            return item;
-          });
+        let updatedCart;
+        if (existingItem) {
+          updatedCart = cartItems.map((item) =>
+            item.product.id === product.id 
+              ? { ...item, cartQuantity: item.cartQuantity + 1 } 
+              : item
+          );
         } else {
-          // New product
-          updatedCart = [
-            ...cartItems,
-            {
-              product,
-              cartQuantity: 1,
-              subTotalPrice: Number(product.price),
-            },
-          ];
+          updatedCart = [...cartItems, { product, cartQuantity: 1, subTotalPrice: product.price }];
         }
 
-        const totalPrice = updatedCart.reduce(
-          (acc, item) => acc + item.subTotalPrice,
-          0
-        );
-
-        const itemsCount = updatedCart.reduce(
-          (acc, item) => acc + item.cartQuantity,
-          0
-        );
-
-        set({
-          cartItems: updatedCart,
-          totalPrice,
-          itemsCount,
-        });
+        console.log('item added')
+        set({ cartItems: updatedCart, ...updateTotals(updatedCart) });
       },
 
       removeItem: (productId) => {
-        const cartItems = get().cartItems;
+        const { cartItems } = get();
+        const existingItem = cartItems.find((item) => item.product.id === productId);
 
-        const existingProduct = cartItems.find(
-          (item) => item.product.id === productId
-        );
+        if (!existingItem) return;
 
-        if (!existingProduct) return;
+        let updatedCart: CartItem[];
 
-        let updatedCart: CartItem[] = [];
-
-        // Remove entire product if quantity is 1
-        if (existingProduct.cartQuantity === 1) {
-          updatedCart = cartItems.filter(
-            (item) => item.product.id !== productId
-          );
+        if (existingItem.cartQuantity === 1) {
+            // Logic: If it's the last one, remove the whole row
+            updatedCart = cartItems.filter((item) => item.product.id !== productId);
         } else {
-          updatedCart = cartItems.map((item) => {
-            if (item.product.id === productId) {
-              const newQuantity = item.cartQuantity - 1;
-
-              return {
-                ...item,
-                cartQuantity: newQuantity,
-                subTotalPrice:
-                  newQuantity * Number(item.product.price),
-              };
-            }
-
-            return item;
-          });
+            // Logic: Decrement quantity and update subtotal
+            updatedCart = cartItems.map((item) =>
+            item.product.id === productId
+                ? { 
+                    ...item, 
+                    cartQuantity: item.cartQuantity - 1,
+                    subTotalPrice: (item.cartQuantity - 1) * item.product.price 
+                }
+                : item
+            );
         }
 
-        const totalPrice = updatedCart.reduce(
-          (acc, item) => acc + item.subTotalPrice,
-          0
-        );
-
-        const itemsCount = updatedCart.reduce(
-          (acc, item) => acc + item.cartQuantity,
-          0
-        );
-
-        set({
-          cartItems: updatedCart,
-          totalPrice,
-          itemsCount,
+        set({ 
+            cartItems: updatedCart, 
+            ...updateTotals(updatedCart) 
         });
-      },
+        },
 
       deleteProduct: (productId) => {
+        // Logic: Straight filter (removes item regardless of quantity)
         const updatedCart = get().cartItems.filter(
-          (item) => item.product.id !== productId
+            (item) => item.product.id !== productId
         );
 
-        const totalPrice = updatedCart.reduce(
-          (acc, item) => acc + item.subTotalPrice,
-          0
-        );
-
-        const itemsCount = updatedCart.reduce(
-          (acc, item) => acc + item.cartQuantity,
-          0
-        );
-
-        set({
-          cartItems: updatedCart,
-          totalPrice,
-          itemsCount,
+        set({ 
+            cartItems: updatedCart, 
+            ...updateTotals(updatedCart) 
         });
-      },
+        },
 
       resetCart: () => {
         set({
           cartItems: [],
           itemsCount: 0,
           totalPrice: 0,
-        });
-      },
-
-      calculateTotals: () => {
-        const cartItems = get().cartItems;
-
-        const totalPrice = cartItems.reduce(
-          (acc, item) => acc + item.subTotalPrice,
-          0
-        );
-
-        const itemsCount = cartItems.reduce(
-          (acc, item) => acc + item.cartQuantity,
-          0
-        );
-
-        set({
-          totalPrice,
-          itemsCount,
         });
       },
     }),

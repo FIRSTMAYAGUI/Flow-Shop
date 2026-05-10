@@ -2,17 +2,17 @@
 import { Link } from 'react-router-dom'
 import Button from './Button'
 import { Heart, ShoppingCart } from 'lucide-react'
+import { useCartStore } from '../features/cart/cartStore'
+import type { Product } from '../features/products/productsTypes'
 
 type ProductCardProps = {
-  id : string | number
-  image_url : string | null
-  alt? : string
-  productName : string
-  categoryName : string | number
-  price: number
+  product: Product;
 }
 
-const ProductCard = ({id, image_url, alt, productName, categoryName, price}: ProductCardProps) => {
+const ProductCard = ({ product }: ProductCardProps) => {
+
+  const { addToCart } = useCartStore();
+
   return (
     <div className="relative w-83 bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition"> 
 
@@ -23,11 +23,11 @@ const ProductCard = ({id, image_url, alt, productName, categoryName, price}: Pro
         <Heart size={20} />
       </button>
       {/* Image */}
-      <Link to={`/product/${id}`}>
+      <Link to={`/product/${product.id}`}>
         <div className="h-80 w-full overflow-hidden cursor-pointer">
           <img
-            src={image_url ?? undefined} 
-            alt={alt ? alt : "image here"}
+            src={product.image_url ?? undefined} 
+            alt={product.name || "image here"}
             className="w-full h-full object-cover"
           />
         </div>
@@ -38,22 +38,24 @@ const ProductCard = ({id, image_url, alt, productName, categoryName, price}: Pro
 
         {/* Product name */}
         <h3 className="text-lg font-semibold text-default-gray">
-          {productName}
+          {product.name}
         </h3>
 
         {/* Category */}
         <p className="text-sm text-light-gray">
-          {categoryName}
+          {product.category.name}
         </p>
 
         {/* Price */}
         <p className="text-xl font-bold text-primary-color">
-          ${price}
+          ${product.price}
         </p>
 
         {/* Button */}
-        <Button className="mt-3 bg-primary-color text-white py-2 rounded-lg hover:bg-primary-color/80 transition">
-           <ShoppingCart className='inline mx-2'/> Add to Cart
+        <Button className="mt-3 bg-primary-color text-white py-2 rounded-lg hover:bg-primary-color/80 transition"
+          onClick={ () => addToCart(product)}
+        >
+          <ShoppingCart className='inline mx-2'/> Add to Cart
         </Button>
       </div>
     </div>

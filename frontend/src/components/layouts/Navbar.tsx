@@ -4,12 +4,15 @@ import Button from "../Button"
 import Logo from "../Logo"
 import { useAuthStore } from "../../features/auth/authStore"
 import toast from "react-hot-toast"
+import { useCartStore } from "../../features/cart/cartStore"
 
 const Navbar = ({ color, borderColor }:{color?: string, borderColor?: string}) => {
 
     const { logout } = useAuthStore();
 
     const navigate = useNavigate();
+
+    const { itemsCount } = useCartStore();
 
     const handleLogout = async () => {
         try {
@@ -82,7 +85,7 @@ const Navbar = ({ color, borderColor }:{color?: string, borderColor?: string}) =
                     <Heart className="icon"/>
                 </Link>
                 <Link to='/cart' className="icon relative p-3">
-                    <span className="absolute right-1 top-1 text-sm text-white bg-red-500 w-5 h-5 text-center rounded-full">3</span>
+                    <span className="absolute right-1 top-1 text-sm text-white bg-red-500 w-5 h-5 text-center rounded-full">{itemsCount}</span>
                     <ShoppingCart/>
                 </Link>
                 <Link to='/' className="icon">

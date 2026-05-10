@@ -2,8 +2,12 @@ import { Heart, Menu, ShoppingCart } from "lucide-react"
 import { Link } from "react-router-dom"
 import Button from "../Button"
 import Logo from "../Logo"
+import { useCartStore } from "../../features/cart/cartStore"
 
 const GuestNavbar = ({ color, borderColor }: { color?: string; borderColor?: string }) => {
+
+  const { itemsCount } = useCartStore();
+  
   return (
      <header className="navbar">
       
@@ -28,7 +32,7 @@ const GuestNavbar = ({ color, borderColor }: { color?: string; borderColor?: str
                 <Heart className="icon"/>
             </Link>
             <Link to='/cart' className="icon relative p-3">
-                <span className="absolute right-1 top-1 text-sm text-white bg-red-500 w-5 h-5 text-center rounded-full">3</span>
+                <span className="absolute right-1 top-1 text-sm text-white bg-red-500 w-5 h-5 text-center rounded-full">{itemsCount}</span>
                 <ShoppingCart/>
             </Link>
         </div>

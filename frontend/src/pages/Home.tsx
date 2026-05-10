@@ -36,15 +36,7 @@ const  Home = () => {
           <SectionTitle>Featured Products</SectionTitle>
           <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center ">
             {products?.map((product: Product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              image_url={product.image_url ? product.image_url : null}
-              alt={product.name}
-              productName={product.name}
-              categoryName={product.category.name}
-              price={product.price}
-            />))}
+            <ProductCard product={product}/>))}
           </div>
 
           <div className="flex justify-center items-center">

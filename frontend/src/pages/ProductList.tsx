@@ -81,15 +81,7 @@ const ProductList = () => {
             <p>No products found</p>
           ) : (
             products?.map((product : Product) => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                image_url={product.image_url}
-                alt={product.name}
-                productName={product.name}
-                categoryName={product.category.name}
-                price={Number(product.price)}
-              />
+              <ProductCard product={product}/>
             ))
           )}
         </div>
