@@ -1,5 +1,7 @@
-import type { Product } from "../products/productsTypes"
+import type { Product } from "../products/productsTypes";
 
-export type CartItems = {
-    product: Product
+export type CartItem = {
+  product: Product;
+  cartQuantity: number;
+  subTotalPrice: number;
 }
