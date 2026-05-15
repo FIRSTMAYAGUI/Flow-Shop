@@ -11,7 +11,7 @@ type CartState = {
   totalPrice: number;
 
   addToCart: (product: Product) => void;
-  removeItem: (productId: number | string) => void;
+  removeItem: (productId: number | string ) => void;
   deleteProduct: (productId: number | string) => void;
 
   resetCart: () => void;

@@ -9,10 +9,12 @@ import { Link, useParams } from "react-router-dom"
 import { useProductStore } from "../features/products/productStore"
 import { useEffect } from "react"
 import { MoonLoader } from "react-spinners"
+import { useCartStore } from "../features/cart/cartStore"
 
 const ProductDetail = () => {
   const { id } = useParams();
   const { product, similar_products, getProductDetails, loading } = useProductStore();
+  const { itemsCount, addToCart, removeItem } = useCartStore();
   
   useEffect(() => {
     if (id) {
@@ -93,11 +95,11 @@ const ProductDetail = () => {
               <span className="font-medium">Quantity in cart</span>
 
               <div className="flex items-center border border-neutral-200 shadow-xs rounded-lg overflow-hidden">
-                <button className="cursor-pointer p-3 hover:bg-neutral-100">
+                <button onClick={() => removeItem(product?.id)} className="cursor-pointer p-3 hover:bg-neutral-100">
                   <Minus size={16} />
                 </button>
-                <span className="px-4 font-medium">1</span>
-                <button className="cursor-pointer p-3 hover:bg-neutral-100">
+                <span className="px-4 font-medium">{itemsCount}</span>
+                <button onClick={() => addToCart(product)} className="cursor-pointer p-3 hover:bg-neutral-100">
                   <Plus size={16} />
                 </button>
               </div>
