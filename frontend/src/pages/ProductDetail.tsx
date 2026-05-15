@@ -126,15 +126,7 @@ const ProductDetail = () => {
         <SectionTitle className="my-8">Similar Products</SectionTitle>
         <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center">
           {similar_products?.map((p) => (
-            <ProductCard
-              key={p.id}
-              id={p.id}
-              image_url={p.image_url}
-              alt={p.name}
-              productName={p.name}
-              categoryName={p.category?.name}
-              price={p.price}
-            />
+            <ProductCard product={p}/>
           ))}       
         </div>
       </Container>
