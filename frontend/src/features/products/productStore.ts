@@ -7,6 +7,8 @@ type ProductState = {
     products: Product[] | null;
     product: Product | null;
     similar_products: Product[];
+    search: string;
+    sort: string;
     pagination: {
       currentPage: number;
       lastPage: number;
@@ -15,29 +17,44 @@ type ProductState = {
     };
     error: string | null;
     loading: boolean;
+    setSearch: (value: string) => void;
+    setSort: (value: string) => void;
     getProducts: (page?: number) => Promise<boolean>
     getProductDetails: (id: number | string) => Promise<boolean>
 }
 
-export const useProductStore = create<ProductState>((set) => ({
+export const useProductStore = create<ProductState>((set, get) => ({
     products: null,
     product: null,
     similar_products: [],
     error: null,
+    search: "",
+    sort: "",
     loading: false,
     pagination: {
-        currentPage: 1,
-        lastPage: 1,
-        totalProducts: 0,
-        paginatedProducts: 0,
+      currentPage: 1,
+      lastPage: 1,
+      totalProducts: 0,
+      paginatedProducts: 0,
     },
+
+    setSearch: (value) => set({ search: value }),
+    setSort: (value) => set({ sort: value }),
 
     getProducts: async (page = 1) => {
       try {
 
         set({ error: null, loading: true });
 
-        const res = await api.get(`/products?page=${page}`);
+        const { search, sort } = get();
+
+        const res = await api.get("/products", {
+          params: {
+            page,
+            search,
+            sort,
+          },
+        })
 
         const paginated = res.data.products;
 

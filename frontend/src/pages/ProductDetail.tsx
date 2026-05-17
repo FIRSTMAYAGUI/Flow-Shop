@@ -96,25 +96,13 @@ const ProductDetail = () => {
 
               <div className="flex items-center border border-neutral-200 shadow-xs rounded-lg overflow-hidden">
                 <button 
-                  onClick={
-                    () => {
-                      if (product) {
-                        removeItem(product.id);
-                      }
-                    }
-                  } 
+                  onClick={() => product && removeItem(product.id)} 
                   className="cursor-pointer p-3 hover:bg-neutral-100">
                   <Minus size={16} />
                 </button>
                 <span className="px-4 font-medium">{itemsCount}</span>
                 <button 
-                  onClick={
-                    () => {
-                      if (product) {
-                        addToCart(product);
-                      }
-                    }
-                  }  
+                  onClick={() => product && addToCart(product)}  
                   className="cursor-pointer p-3 hover:bg-neutral-100">
                   <Plus size={16} />
                 </button>
