@@ -14,7 +14,7 @@ import { useCartStore } from "../features/cart/cartStore"
 const ProductDetail = () => {
   const { id } = useParams();
   const { product, similar_products, getProductDetails, loading } = useProductStore();
-  const { itemsCount, addToCart, removeItem } = useCartStore();
+  const { addToCart, removeItem, getProductQuantity } = useCartStore();
   
   useEffect(() => {
     if (id) {
@@ -100,7 +100,7 @@ const ProductDetail = () => {
                   className="cursor-pointer p-3 hover:bg-neutral-100">
                   <Minus size={16} />
                 </button>
-                <span className="px-4 font-medium">{itemsCount}</span>
+                <span className="px-4 font-medium">{product && getProductQuantity(product.id)}</span>
                 <button 
                   onClick={() => product && addToCart(product)}  
                   className="cursor-pointer p-3 hover:bg-neutral-100">

@@ -13,7 +13,7 @@ type CartState = {
   addToCart: (product: Product) => void;
   removeItem: (productId: number | string ) => void;
   deleteProduct: (productId: number | string) => void;
-
+  getProductQuantity: (productId: number | string) => number;
   resetCart: () => void;
 };
 
@@ -79,7 +79,7 @@ export const useCartStore = create<CartState>()(
             cartItems: updatedCart, 
             ...updateTotals(updatedCart) 
         });
-        },
+      },
 
       deleteProduct: (productId) => {
         // Logic: Straight filter (removes item regardless of quantity)
@@ -91,7 +91,15 @@ export const useCartStore = create<CartState>()(
             cartItems: updatedCart, 
             ...updateTotals(updatedCart) 
         });
-        },
+      },
+
+      getProductQuantity: (productId) => {
+        const item = get().cartItems.find(
+          (item) => item.product.id === productId
+        );
+
+        return item ? item.cartQuantity : 0;
+      },
 
       resetCart: () => {
         set({
