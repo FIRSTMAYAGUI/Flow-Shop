@@ -1,13 +1,7 @@
 import Container from "../components/Container"
 import PageTitle from "../components/PageTitle"
-import ProductCard from "../components/ProductCard"
 import SearchInput from "../components/SearchInput"
 import SortInput from "../components/SortInput"
-import  WomanShop  from "../assets/images/woman-shop.jpg"
-import  WomanWithGlasses  from "../assets/images/woman-infront-building.jpg"
-import GameController from "../assets/images/gaming-controllers.jpg"
-import Technology from "../assets/images/technology.jpg"
-import GirlWithHeadset from "../assets/images/girl-with-headset.jpg"
 import Button from "../components/Button"
 
 const Favorites = () => {
@@ -32,51 +26,7 @@ const Favorites = () => {
 
         </div>
         <div className="w-full max-w-8xl flex flex-wrap gap-12 justify-center ">
-          <ProductCard 
-            imageUrl={Technology}
-            alt={""} 
-            productName={"Latest Latops"}
-            categoryName={"Electronics"}
-            price={44.9}
-          />
-
-          <ProductCard 
-            imageUrl={WomanWithGlasses}
-            alt={""} 
-            productName={"Sun glasses"}
-            categoryName={"Fashion"}
-            price={49.5}
-          />
-
-          <ProductCard 
-            imageUrl={WomanShop}
-            alt={""} 
-            productName={"Nice Jackets"}
-            categoryName={"Out fits"}
-            price={119.0}
-          />
-
-          <ProductCard 
-            imageUrl={GirlWithHeadset}
-            alt={""} 
-            productName={"High quality Headsets"}
-            categoryName={"Fashion"}
-            price={59.9}
-          />
-          <ProductCard 
-            imageUrl={GameController}
-            alt={""} 
-            productName={"Newest Gaming Controller"}
-            categoryName={"Gaming"}
-            price={35}
-          />
-          <ProductCard 
-            imageUrl={GirlWithHeadset}
-            alt={""} 
-            productName={"High quality Headsets"}
-            categoryName={"Fashion"}
-            price={59.9}
-          />         
+          \      
         </div>
         {/* pagination UI */}
         <div className="mt-12 flex justify-center items-center gap-3">
