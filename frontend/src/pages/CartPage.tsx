@@ -45,13 +45,15 @@ const CartPage = () => {
                 <div className="flex flex-col sm:flex-row items-center gap-6 border-b border-gray-300 pb-6">
 
                   {/* Image */}
-                  <div className="w-32 h-32 rounded-xl overflow-hidden bg-neutral-100">
-                    <img
-                      src={item.product.image_url || ""}
-                      alt={item.product.name || ""}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                  <Link to={`/product/${item.product.id}`}>
+                    <div className="w-32 h-32 rounded-xl overflow-hidden bg-neutral-100 cursor-pointer">
+                      <img
+                        src={item.product.image_url || ""}
+                        alt={item.product.name || ""}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </Link>
 
                   {/* Product info */}
                   <div className="flex-1 space-y-6">
