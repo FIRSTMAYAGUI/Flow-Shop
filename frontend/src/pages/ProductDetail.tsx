@@ -116,7 +116,9 @@ const ProductDetail = () => {
                 Buy Product
               </Button>
             </Link>
-            <button className="cursor-pointer p-4 border border-neutral-200 rounded-xl hover:bg-neutral-100 transition">
+            <button 
+              onClick={() => product && addToCart(product)}
+              className="cursor-pointer p-4 border border-neutral-200 rounded-xl hover:bg-neutral-100 transition">
               <ShoppingCart />
             </button>
             <button className="cursor-pointer p-4 border border-neutral-200 rounded-xl hover:bg-neutral-100 transition">
