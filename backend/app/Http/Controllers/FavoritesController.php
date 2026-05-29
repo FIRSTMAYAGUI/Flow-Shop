@@ -13,38 +13,24 @@ class FavoritesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(string $userId)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
     {
-        $user = User::find($userId);
-
-        if(!$user){
-            return response()->json([
-                'message' => 'User doesn\'t exist',
-                'status' => 'failed',
-            ], 404);
-        }
-
-        $favorites = Favorites::where('user_id', $userId)->latest()->get();
-
-        //dd($favorites);
-
-        if ($favorites->isEmpty()) {
-            return response()->json([
-                'message' => 'No favorite product found',
-                'status' => 'success',
-            ], 200);
-        }
-
-        //$productIds = $favorites->pluck('product_id'); 
-
-        //$favProducts = Product::whereIn('id', $productIds)->latest()->get();
-
-        $favProducts = $favorites->load('product');
+        $favorites = Favorites::with('product.category')
+            ->where('user_id', $request->user()->id)
+            ->latest()
+            ->get();
 
         return response()->json([
-            'message' => 'Favorite products fetched successfully',
+            'message' => $favorites->isEmpty()
+                ? 'No favorite product found'
+                : 'Favorite products fetched successfully',
+
             'status' => 'success',
-            'data' => $favProducts->pluck('product'),
+
+            'favorites' => $favorites,
         ], 200);
     }
 
