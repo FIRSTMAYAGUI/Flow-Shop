@@ -1,23 +1,34 @@
 import { Search } from "lucide-react";
-import { useProductStore } from "../features/products/productStore";
-import { useDebounce } from "../hooks/useDebounce";
 import { useEffect, useState } from "react";
 
+import { useProductStore } from "../features/products/productStore";
+import { useDebounce } from "../hooks/useDebounce";
+import { useFilterStore } from "../features/filters/useFilterStore";
+
 const SearchInput = () => {
-  const { setSearch, getProducts } = useProductStore();
-  const [value, setValue] = useState("");
+  const { getProducts } = useProductStore();
+
+  const { search, setSearch } = useFilterStore();
+
+  const [value, setValue] = useState(search);
 
   const debounced = useDebounce(value, 500);
 
   useEffect(() => {
     setSearch(debounced);
-    getProducts(1); // reset to page 1 on search
-  }, [debounced, setSearch, getProducts]);
+
+    getProducts(1);
+  }, [setSearch, debounced, getProducts]);
 
   return (
     <div className="relative w-full max-w-md">
-      <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+      <Search
+        size={20}
+        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+      />
+
       <input
+        type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Search products..."
