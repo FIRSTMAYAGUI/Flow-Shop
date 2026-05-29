@@ -39,116 +39,75 @@ class FavoritesController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedfavorite = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
+        $validator = Validator::make($request->all(), [
             'product_id' => 'required|exists:products,id',
         ]);
 
-        if($validatedfavorite->fails()){
+        if ($validator->fails()) {
             return response()->json([
-                'message' => 'failed to add to favorites',
+                'message' => 'Failed to add product to favorites',
                 'status' => 'failed',
-                'errors' => $validatedfavorite->errors(),
+                'errors' => $validator->errors(),
             ], 422);
         }
 
-        $favorite = Favorites::create([
-            'user_id' => $request->user_id,
+        $favorite = Favorites::firstOrCreate([
+            'user_id' => $request->user()->id,
             'product_id' => $request->product_id,
         ]);
 
-        //$favorite->load('product');
-
         return response()->json([
-            'message' => 'product added to favorites',
+            'message' => $favorite->wasRecentlyCreated
+                ? 'Product added to favorites'
+                : 'Product is already in favorites',
             'status' => 'success',
-            'data' => $favorite//->pluck('product'),
+            'favorite' => $favorite->load('product'),
         ], 200);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $favoriteId, string $userId)
+    public function show(Product $product, Request $request)
     {
-        $user = User::find($userId);
+        $favorite = Favorites::where('user_id', $request->user()->id)
+            ->where('product_id', $product->id)
+            ->first();
 
-        if(!$user){
+        if (!$favorite) {
             return response()->json([
-                'message' => 'User doesn\'t exist',
+                'message' => 'This product is not in your favorites',
                 'status' => 'failed',
             ], 404);
         }
-
-        $favorite = Favorites::find($favoriteId);
-
-        if(!$favorite){
-            return response()->json([
-                'message' => 'Favorite doesn\'t exist',
-                'status' => 'failed',
-            ], 404);
-        }
-
-        $favorite = Favorites::where('id', $favoriteId)->where('user_id', $userId)->get();
-
-        //dd($favorites);
-
-        if ($favorite->isEmpty()) {
-            return response()->json([
-                'message' => 'No favorite product found',
-                'status' => 'success',
-            ], 200);
-        }
-
-        //$productIds = $favorites->pluck('product_id'); 
-
-        //$favProducts = Product::whereIn('id', $productIds)->latest()->get();
-
-        $favProducts = $favorite->load('product');
 
         return response()->json([
-            'message' => 'Favorite product fetched successfully',
+            'message' => 'Favorite fetched successfully',
             'status' => 'success',
-            'data' => $favProducts->pluck('product'),
+            'favorite' => $favorite,
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $favoriteId, string $userId)
+    public function destroy(Product $product, Request $request)
     {
-        $user = User::find($userId);
+        $favorite = Favorites::where('user_id', $request->user()->id)
+            ->where('product_id', $product->id)
+            ->first();
 
-        if(!$user){
+        if (!$favorite) {
             return response()->json([
-                'message' => 'User doesn\'t exist',
+                'message' => 'This product is not in your favorites',
                 'status' => 'failed',
             ], 404);
-        }
-
-        $favorite = Favorites::find($favoriteId);
-
-        if(!$favorite){
-            return response()->json([
-                'message' => 'Favorite doesn\'t exist',
-                'status' => 'failed',
-            ], 404);
-        }
-
-        $userFav = Favorites::where('user_id', $userId)->get();
-
-        if($userFav->isEmpty()){
-            return response()->json([
-                'message' => 'Favorite doesn\'t belong to user',
-                'status' => 'failed',
-            ], 403);
         }
 
         $favorite->delete();
 
         return response()->json([
-            'message' => 'Removed from favorites',
+            'message' => 'Favorite removed successfully',
             'status' => 'success',
         ], 200);
     }

@@ -40,8 +40,8 @@ Route::middleware('auth:sanctum')->controller(CategoriesController::class)->grou
 Route::middleware('auth:sanctum')->controller(FavoritesController::class)->group(function (){
     Route::post('/favorites', 'store');
     Route::get('/favorites', 'index');
-    Route::get('/favorites/{favoriteId}', 'show');
-    Route::delete('/favorites/{favoriteId}', 'destroy');
+    Route::get('/favorites/{productId}', 'show');
+    Route::delete('/favorites/{productId}', 'destroy');
 });
 
 Route::middleware('auth:sanctum')->prefix('users/orders')->controller(OrdersController::class)->group(function (){
